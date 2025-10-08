@@ -1,0 +1,13 @@
+# ROS2 build / log / install folders
+build/
+install/
+log/
+
+# Python cache
+*.pyc
+__pycache__/
+
+# VSCode / JetBrains
+.vscode/
+.idea/
+

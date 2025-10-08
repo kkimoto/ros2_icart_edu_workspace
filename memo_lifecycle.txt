@@ -1,0 +1,17 @@
+# check current state
+ros2 lifecycle get /urg3d_node2
+
+# configure node (unconfigured -> inactive)
+ros2 lifecycle set /urg3d_node2 configure
+
+# activate node (inactive -> active)
+ros2 lifecycle set /urg3d_node2 activate
+
+# deactivate node (active -> inactive)
+ros2 lifecycle set /urg3d_node2 deactivate
+
+# cleanup node (inactive -> unconfigured)
+ros2 lifecycle set /urg3d_node2 cleanup
+
+# shutdown node (any -> finalized)
+ros2 lifecycle set /urg3d_node2 shutdown
