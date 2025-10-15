@@ -5,7 +5,7 @@ lidar1:
     frame_id: laser_frame_1
     calibrate_time: false
     synchronize_time: false
-    publish_intensity: false
+    publish_intensity: true
     publish_multiecho: false
     error_limit: 4
     error_reset_period: 5.0
@@ -23,7 +23,7 @@ lidar2:
     frame_id: laser_frame_2
     calibrate_time: false
     synchronize_time: false
-    publish_intensity: false
+    publish_intensity: true
     publish_multiecho: false
     error_limit: 4
     error_reset_period: 5.0

@@ -59,3 +59,52 @@ Launcher src/edu_robot/launch/
     bash myscripts/lifecycle_teleop.bash deactivate
     bash myscripts/lifecycle_teleop.bash cleanup
     bash myscripts/lifecycle_teleop.bash shutdown
+
+2. tf の static transform 
+
+  arno2b_ws と同じもの
+  src/edu_robot/launch/static_transforms.launch.py 
+
+  起動
+    ros2 launch edu_robot static_transforms.launch.py 
+
+
+
+3. 2D lidar
+
+  準備
+    cd src
+    git clone --recursive https://github.com/Hokuyo-aut/urg_node2.git
+    rosdep update
+    rosdep install -i --from-paths urg_node2
+    cd ..
+    bash myscripts/com_build_all.bash
+
+  launch file (起動後はinactive)
+    src/edu_robot/launch/urg_node2.launch.py
+
+  ライフサイクルの管理 (2台同時)
+    lifecycle_urg_node2.bash
+
+4. laser_scan_merger
+
+  準備
+    cd src/
+    git clone https://github.com/BruceChanJianLe/laser_scan_merger.git
+    rosdep update
+    rosdep install -i --from-paths laser_scan_merger
+    cd ..
+    bash myscripts/com_build_all.bash
+
+  ライフサイクル管理はしない
+    lanuch file
+      src/edu_robot/launch/laser_scan_merger.launch.py 
+
+  起動
+    ros2 launch edu_robot laser_scan_merger.launch.py 
+
+5. すべてを launch する。
+
+  bash myscripts/000_launch_main_system.bash
+
+  teleop は起動しない。teleop するときだけ起動する。
