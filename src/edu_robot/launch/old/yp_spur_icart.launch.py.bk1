@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+from launch import LaunchDescription
+from launch_ros.actions import Node
+
+def generate_launch_description():
+    # Launch only the watchdog
+    watchdog = Node(
+        package='edu_robot',
+        executable='ypspur_icartmini_watchdog',  # updated executable
+        name='yp_spur_lifecycle_watchdog',
+        output='screen',
+        emulate_tty=True,
+    )
+
+    # Do NOT launch icart_mini_driver automatically
+    # icart = Node(
+    #     package='icart_mini_driver',
+    #     executable='icart_mini_driver_node',
+    #     name='icart_mini_driver',
+    #     output='screen',
+    #     emulate_tty=True
+    # )
+
+    ld = LaunchDescription()
+    ld.add_action(watchdog)
+    # ld.add_action(icart)  # commented out to prevent automatic start
+    return ld
