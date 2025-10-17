@@ -119,4 +119,20 @@ Launcher src/edu_robot/launch/
   Ubuntu パッケージをインストール
     sudo apt install ros-humble-slam-toolbox
 
+  launch file
+    src/edu_robot/launch/slam_sync.launch.py
 
+8. 地図作成
+
+  基本システムの起動
+    bash myscripts/000_launch_main_system.bash 
+
+  slam mapping 起動
+    bash myscripts/001_start_slam.bash 
+
+  gamepad でロボットを動かして地図を作る
+
+  地図保存
+    bash myscripts/002_save_map.bash 
+
+---
