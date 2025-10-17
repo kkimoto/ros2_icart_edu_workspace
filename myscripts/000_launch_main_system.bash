@@ -1,7 +1,9 @@
 
 source install/setup.bash
 
+#
 # locomotion system (life cycle unconfigured)
+#
 
 echo "Launch YP-SPUR"
 ros2 launch edu_robot yp_spur.launch.py &
@@ -18,8 +20,11 @@ echo "CONFIGURE ICART"
 ros2 lifecycle set /icart_lifecycle_wrapper configure
 echo "ACTIVATE ICART"
 ros2 lifecycle set /icart_lifecycle_wrapper activate
+sleep 3
 
+#
 # sensor system  (life cycle unconfigured)
+#
 
 echo "Launch URG"
 ros2 launch edu_robot urg_node2.launch.py &
@@ -36,7 +41,11 @@ sleep 3
 
 # utility
 
-echo "Launch TF and SCAN-MERGER"
+echo "Launch TF and SCAN-MERGER and JOY"
 ros2 launch edu_robot static_transforms.launch.py &
 ros2 launch edu_robot laser_scan_merger.launch.py &
 
+echo "Launch TELEOP"
+ros2 launch edu_robot teleop.launch.py &
+
+echo "main_system DONE"

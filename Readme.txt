@@ -108,3 +108,15 @@ Launcher src/edu_robot/launch/
   bash myscripts/000_launch_main_system.bash
 
   teleop は起動しない。teleop するときだけ起動する。
+
+6. icart_mini_driver の /odom の扱い
+
+  まだよくわからない
+  spur ライブラリでリセットできる。
+
+7. slam_toolbox
+
+  Ubuntu パッケージをインストール
+    sudo apt install ros-humble-slam-toolbox
+
+

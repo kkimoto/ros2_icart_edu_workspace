@@ -27,5 +27,4 @@ ros2 daemon start || true
 
 echo "[reset] done. Now re-source your overlays in order:"
 echo "  source /opt/ros/humble/setup.bash"
-echo "  source ~/ros2_workspaces/arno2_ws/install/setup.bash"
-echo "  source ~/ros2_workspaces/arno2b_ws/install/setup.bash"
+echo "  source ~/ros2_workspaces/edu_ws/install/setup.bash"

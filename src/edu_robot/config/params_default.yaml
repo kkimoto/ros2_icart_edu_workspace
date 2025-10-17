@@ -58,7 +58,7 @@ scan_merger:
     frames: ["laser_frame_1", "laser_frame_2"]
     scan_policies: [0, 0]  # reliability policy ros2 topic: 0=reliable, 1=best effort
     # Output
-    merged_frame_id: "base_link"
+    merged_frame_id: "base_scan"
 
     tolerance: 0.01
     min_height: -1.0
@@ -167,7 +167,7 @@ teleop_twist_joy_node:
     # ROS 1: scale_linear: 0.4
     # Sets the maximum regular linear velocity for X
     scale_linear:
-      x: 0.4
+      x: 0.2
       y: 0.0
       z: 0.0
 
@@ -191,7 +191,7 @@ teleop_twist_joy_node:
     # ROS 1: scale_angular: 0.5
     # Sets the maximum regular angular velocity for Yaw
     scale_angular:
-      yaw: 0.5
+      yaw: 0.9
       pitch: 0.0
       roll: 0.0
 
