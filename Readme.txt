@@ -135,4 +135,24 @@ Launcher src/edu_robot/launch/
   地図保存
     bash myscripts/002_save_map.bash 
 
----
+    map/mymap.yaml, map/mymap.pgm ができる。
+
+9. way point 作成
+
+  map は map/map.yaml, map/map.pgm を使う。
+  mymap からファイル名を変える。map.yaml 内にも pgm 指定があるので書き換える。
+
+  map server と nav2-amcl をつかう。
+
+  sudo apt install ros-humble-nav2-amcl
+
+  パラメータ追加 edu_robot/config/params_default.yaml
+
+  launch file
+    edu_robot/launch/make_wp.launch.py
+
+  別途 teleop も必要
+  bash myscripts/001b_teleop_only.bash
+  bash myscripts/003_make_wp.bash
+
+  way point を置く python はこれから

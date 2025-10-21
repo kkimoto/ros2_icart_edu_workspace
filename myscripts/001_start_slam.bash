@@ -14,7 +14,7 @@ echo "SLAM is running. Build your map now."
 
 # --- Wait for User Input to Terminate ---
 
-echo "Press [Enter] to terminate SLAM/Teleop nodes..."
+echo "Press [Enter] to terminate SLAM / cleanup Teleop nodes..."
 read -r # Waits for any keyboard input (e.g., Return/Enter key)
 
 # Deactivate Teleop Node (Lifecycle Node)
