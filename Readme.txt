@@ -151,8 +151,17 @@ Launcher src/edu_robot/launch/
   launch file
     edu_robot/launch/make_wp.launch.py
 
+  新規作成
+    src/edu_robot/edu_robot/make_wp_joy.py
+
+
   別途 teleop も必要
   bash myscripts/001b_teleop_only.bash
   bash myscripts/003_make_wp.bash
+    ここでは teleop と map_server と amcl が起動する。
 
-  way point を置く python はこれから
+  way point を置く
+
+    ros2 run edu_robot make_wp_joy <way-point-file-name>
+
+---
