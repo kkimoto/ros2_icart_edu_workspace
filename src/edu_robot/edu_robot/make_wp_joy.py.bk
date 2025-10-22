@@ -1,0 +1,254 @@
+#!/usr/bin/env python3
+
+import rclpy
+from rclpy.node import Node
+from rclpy.qos import qos_profile_system_default, QoSProfile, ReliabilityPolicy
+from rclpy.duration import Duration
+#from geometry_msgs.msg import PoseArray, Pose
+#from nav_msgs.msg import Odometry
+from geometry_msgs.msg import PoseArray, Pose, TransformStamped
+from nav_msgs.msg import Odometry
+
+from visualization_msgs.msg import MarkerArray, Marker
+from sensor_msgs.msg import Joy
+#import tf_transformations
+import tf2_ros
+from tf2_ros import TransformException
+
+import os
+import sys
+import math
+import json
+from typing import List, Union
+
+# --- Node Class ---
+class MakeWaypointJoyNode(Node):
+
+    # 1. Globals converted to Class Attributes (with Type Hints)
+    previous_state: int = 0
+    counter: int = 0
+    write: Union[str, None] = None
+    file_name: Union[str, None] = None
+
+    pos: List[float] = [0.0, 0.0, 0.0]  # x, y, z
+    qu: List[float] = [0.0, 0.0, 0.0, 0.0] # x, y, z, w
+
+    make_waypoints: PoseArray = PoseArray()
+    make_numbers: MarkerArray = MarkerArray()
+
+    def __init__(self):
+        super().__init__('make_wp_joy')
+
+        # 2. Setup TF2 Listener/Buffer
+        self.tf_buffer = tf2_ros.Buffer()
+        self.tf_listener = tf2_ros.TransformListener(self.tf_buffer, self)
+
+        # 3. Setup Publishers
+        self.pub_waypoints = self.create_publisher(PoseArray, 'make_waypoints', qos_profile_system_default)
+        self.pub_num = self.create_publisher(MarkerArray, 'make_numbers', qos_profile_system_default)
+
+        # 4. Setup Subscriber with explicit QoS
+        # Joy topics typically use best-effort QoS for fast updates
+        joy_qos = QoSProfile(
+            depth=10,
+            reliability=ReliabilityPolicy.BEST_EFFORT
+        )
+        self.create_subscription(Joy, 'joy', self.joy_input_callback, joy_qos)
+        
+        # Initial questions and setup
+        # --- MODIFICATION HERE ---
+        if not self.Question():
+            # Raise an exception to stop node initialization if user says 'n'
+            raise SystemExit("Waypoint generation aborted by user.")
+        # --- END MODIFICATION --
+
+        self.write = 'start'
+        self.WriteFile()
+        print('\a')
+        self.get_logger().info('Push the Button Number 1 to record waypoints.')
+
+    def get_transform(self, target_frame: str, source_frame: str) -> Union[TransformStamped, None]:
+        try:
+            # ROS2 lookupTransform is non-blocking and uses time points
+            transform = self.tf_buffer.lookup_transform(
+                target_frame,
+                source_frame,
+                rclpy.time.Time()
+            )
+            return transform
+        except TransformException as ex:
+            self.get_logger().info(f'Could not transform {target_frame} to {source_frame}: {ex}')
+            return None
+
+    def joy_input_callback(self, msg: Joy):
+        # Button 1 is usually the 'B' or 'Circle' button on gamepads
+        if self.previous_state == 1 and msg.buttons[1] == 0:
+            self.PrintArrow()
+            self.get_logger().info('{0}:[[{1},{2},0.0],[0.0,0.0,{3},{4}]]' .format(
+                self.counter - 1, self.pos[0], self.pos[1], self.qu[2], self.qu[3]))
+
+        self.previous_state = msg.buttons[1]
+
+    def PrintArrow(self):
+        # 5. TF lookup and update pos/qu
+        transform = self.get_transform('map', 'base_link')
+        if not transform:
+            return
+
+        position = transform.transform.translation
+        quaternion = transform.transform.rotation
+
+        self.pos[0] = position.x
+        self.pos[1] = position.y
+        self.qu[0] = quaternion.x
+        self.qu[1] = quaternion.y
+        self.qu[2] = quaternion.z
+        self.qu[3] = quaternion.w
+
+        # Publish PoseArray
+        pose = Pose()
+        pose.position.x = self.pos[0]
+        pose.position.y = self.pos[1]
+        pose.orientation.z = self.qu[2]
+        pose.orientation.w = self.qu[3]
+
+        self.make_waypoints.header.frame_id = 'map'
+        self.make_waypoints.poses.append(pose)
+        self.pub_waypoints.publish(self.make_waypoints)
+
+        # Publish Marker (text numbers)
+        marker_data = Marker()
+        marker_data.header.frame_id = 'map'
+        marker_data.header.stamp = self.get_clock().now().to_msg()
+        marker_data.ns = 'basic_shapes'
+        marker_data.id = self.counter
+        marker_data.action = Marker.ADD
+        
+        # Position and Orientation are copied from the latest transform
+        marker_data.pose = pose
+        marker_data.text = str(self.counter)
+        
+        marker_data.color.a = 1.0
+        marker_data.color.r = 1.0
+        marker_data.color.g = 0.1
+        marker_data.color.b = 0.5
+
+        marker_data.scale.z = 2.0
+        marker_data.lifetime = Duration().to_msg()
+        marker_data.type = Marker.TEXT_VIEW_FACING
+
+        self.make_numbers.markers.append(marker_data)
+        self.pub_num.publish(self.make_numbers)
+        self.counter += 1
+
+    def WriteFile(self):
+        # File I/O logic is preserved using Python 3 open()
+        try:
+            full_path = sys.argv[1] + self.file_name
+            
+            if self.write == 'start':
+                with open(full_path, 'w') as file:
+                    file.write('[')
+            else:
+                with open(full_path, 'a') as file:
+                    if self.write == 'goal':
+                        file.write('\n[[{0},{1},0.0],[0.0,0.0,{2},{3}]]\n]' .format(
+                            self.pos[0], self.pos[1], self.qu[2], self.qu[3]))
+                    else:
+                        waypoint = self.make_waypoints
+                        for i in range(len(waypoint.poses)):
+                            x = waypoint.poses[i].position.x
+                            y = waypoint.poses[i].position.y
+                            z = waypoint.poses[i].orientation.z
+                            w = waypoint.poses[i].orientation.w
+                            file.write('\n[[{0},{1},0.0],[0.0,0.0,{2},{3}]],'.format(x, y, z, w))
+            
+        except Exception as e:
+            self.get_logger().error(f"Failed to write file: {e}")
+
+    def Question(self) -> bool: # Indicate it returns a bool
+        if (len(sys.argv) < 2):
+            print('\a')
+            print('Usage ' + sys.argv[0] + ' fileName ')
+            sys.exit(0) # Keep this one, as it's a fatal usage error
+
+        print('\a')
+        self.file_name = '_waypoint.json'
+        # Note: Directory change is not recommended in ROS2 nodes...
+        os.chdir('./wpdata')
+        is_file = os.path.isfile(sys.argv[1] + self.file_name)
+
+        if is_file:
+            while True:
+                answer = input('Overwrite ' + sys.argv[1] + self.file_name + '? (y/n) ')
+                if answer == 'y':
+                    return True # Proceed
+                elif answer == 'n':
+                    # DO NOT use sys.exit(0) here
+                    return False # STOP
+                else:
+                    print('Enter y or n.')
+        return True # Proceed if file doesn't exist
+
+    def cleanup_and_finish(self):
+        # Remove waypoints logic
+        while True:
+            print('\a')
+            remove = input('Remove? (y/n)')
+            if remove == 'y':
+                while True:
+                    removenum = input('number: ')
+                    if not removenum:
+                        break
+                    try:
+                        idx = int(removenum)
+                        self.make_waypoints.poses.pop(idx)
+                        self.counter -= 1
+                        print(' Remove waypoint {0}' .format(removenum))
+                    except (ValueError, IndexError):
+                        print('Invalid number.')
+                break
+            elif remove == 'n':
+                break
+            else:
+                print('Enter y or n .')
+
+        print('terminating...')
+
+        # Write final waypoint data (end of list)
+        self.write = None
+        self.WriteFile()
+
+        # Write goal
+        self.write = 'goal'
+        self.WriteFile()
+
+# --- Main Execution ---
+def main(args=None):
+    rclpy.init(args=args)
+# --- Main Execution ---
+def main(args=None):
+    rclpy.init(args=args)
+    node = None # Initialize node variable
+    try:
+        node = MakeWaypointJoyNode()
+        rclpy.spin(node) # Spin to listen for Joy messages
+    except KeyboardInterrupt:
+        pass
+    # >>> MODIFICATION: Catch the SystemExit raised when user aborts
+    except SystemExit as se:
+        print(f"INFO: {se}") # Print the exit message
+    except Exception as e:
+        if node:
+            node.get_logger().error(f"Node failed: {e}")
+        else:
+            print(f"Node initialization failed: {e}")
+    finally:
+        if node:
+            node.cleanup_and_finish()
+            node.destroy_node()
+        # >>> MODIFICATION: rclpy.shutdown() is called only once here, regardless of how the program ended
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()

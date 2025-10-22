@@ -27,7 +27,7 @@ setup(
             'icart_lifecycle_wrapper = edu_robot.icart_lifecycle_wrapper:main',
             'teleop_lifecycle_wrapper = edu_robot.teleop_lifecycle_wrapper:main',
             'pose_reader = edu_robot.pose_reader_node:main',
-            'make_wp_joy = edu_robot.make_wp_joy:main',
+            #'make_wp_joy = edu_robot.make_wp_joy:main',
         ],
     },
 )

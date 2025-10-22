@@ -22,6 +22,11 @@ for p in /dev/shm/*fastdds* /dev/shm/*FastDDS* /dev/shm/*dds* /dev/shm/*iceoryx*
 done
 shopt -u nullglob
 
+# added
+#killall -w -r ros2 || true
+sleep 3;
+#
+
 echo "[reset] starting ros2 daemon..."
 ros2 daemon start || true
 

@@ -164,4 +164,8 @@ Launcher src/edu_robot/launch/
 
     ros2 run edu_robot make_wp_joy <way-point-file-name>
 
----
+10. navigation
+
+  sudo apt install ros-humble-navigation
+  sudo apt install ros-humble-nav2-bringup
+

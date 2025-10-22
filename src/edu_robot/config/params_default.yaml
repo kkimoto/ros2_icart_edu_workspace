@@ -249,3 +249,18 @@ amcl:
     initial_pose_x: 0.0
     initial_pose_y: 0.0
     initial_pose_a: 0.0          # yaw in radians
+
+controller_server:
+  ros__parameters:
+    controller_frequency: 20.0
+    controller_plugins: ["FollowPath"]
+    FollowPath:
+      # Use regulated pure pursuit implementation
+      plugin: "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController"
+      lookahead_distance: 0.6
+      min_lookahead_distance: 0.3
+      use_velocity_scaled_lookahead: true
+      max_linear_velocity: 0.5
+      min_linear_velocity: 0.05
+      max_angular_velocity: 1.0
+      transform_tolerance: 0.1
