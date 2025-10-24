@@ -45,7 +45,7 @@ echo "Launch TF and SCAN-MERGER and JOY"
 ros2 launch edu_robot static_transforms.launch.py &
 ros2 launch edu_robot laser_scan_merger.launch.py &
 
-echo "Launch TELEOP"
-ros2 launch edu_robot teleop.launch.py &
+#echo "Launch TELEOP"
+#ros2 launch edu_robot teleop.launch.py &
 
 echo "main_system DONE"
