@@ -169,3 +169,14 @@ Launcher src/edu_robot/launch/
   sudo apt install ros-humble-navigation
   sudo apt install ros-humble-nav2-bringup
 
+  ナビゲーションのときは
+
+  bash myscripts/000_launch_main_system.bash 
+  bash myscripts/004_navigate.bash 
+  rviz2 -d rviz2_config/nav2.rviz
+
+  rviz2 で nav2 goal を与える
+
+11. waypoint を継続的に与えて移動する
+
+  まだ
