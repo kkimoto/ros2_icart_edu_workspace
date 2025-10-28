@@ -201,6 +201,11 @@ Launcher src/edu_robot/launch/
 
 11. waypoint を継続的に与えて移動する
 
+  waypoints をコピー
+  cd wpdata;
+  cp hokuyo_20251028_waypoints.json 
+  cd ..
+
   色々やり直す
   bash myscripts/com_cold_reset.bash
 
@@ -212,6 +217,10 @@ Launcher src/edu_robot/launch/
 
   waypoint を次々に与える Python プログラムの起動
   python3 src/edu_robot/bin/follow_wp_json.py
+    これは wpdata/wp.json のファイルを読みます。
 
   おまけ
   rviz -d rviz2_config/nav2.rviz 
+
+
+ここまで
