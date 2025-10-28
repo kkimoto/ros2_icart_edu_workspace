@@ -1,8 +1,8 @@
 Last Config Dir: /home/kimoto/.rviz2
 Last Image Dir: ""
 Recent Configs:
-  - /home/kimoto/.rviz2/nav2.rviz
-  - /home/kimoto/.rviz2/default.rviz
   - .rviz2/nav2.rviz
+  - /home/kimoto/.rviz2/default.rviz
+  - /home/kimoto/.rviz2/nav2.rviz
   - /home/kimoto/nav2.rviz
   - /opt/ros/humble/share/nav2_bringup/rviz/nav2_default_view.rviz

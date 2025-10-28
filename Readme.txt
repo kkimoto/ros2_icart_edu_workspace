@@ -177,6 +177,41 @@ Launcher src/edu_robot/launch/
 
   rviz2 で nav2 goal を与える
 
+11. waypoint をおいていく
+
+  ノードの立ち上げはまだ整理てきていないためいくつかに分けています。
+
+  基本ノードの立ち上げ
+  bash myscripts/000_launch_main_system.bas
+
+  amcl(自己位置推定）と map_server の立ち上げ
+  bash myscripts/003_make_wp.bash
+
+  waypoint を記録する Python プログラムの立ち上げ
+  python3 src/edu_robot/bin/make_wp_joy.py hokuyo_20251028
+
+  teleop の立ち上げ(これだけ別になっている)
+  bash myscripts/001b_teleop_only.bash 
+
+  gamepad (joy) でロボットを動かして waypoint をボタン 2 で置いてゆく。
+  wpdata/hokuyo_20251028_waypoint.json ができる。
+
+  おまけ
+  rviz -d rviz2_config/default.rviz
+
 11. waypoint を継続的に与えて移動する
 
-  まだ
+  色々やり直す
+  bash myscripts/com_cold_reset.bash
+
+  基本ノードの立ち上げ
+  bash myscripts/000_launch_main_system.bas
+
+  ナビゲーションノードの立ち上げ
+  bash myscripts/000_launch_main_system.bas
+
+  waypoint を次々に与える Python プログラムの起動
+  python3 src/edu_robot/bin/follow_wp_json.py
+
+  おまけ
+  rviz -d rviz2_config/nav2.rviz 
