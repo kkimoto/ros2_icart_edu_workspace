@@ -10,6 +10,7 @@ ros2 launch edu_robot yp_spur.launch.py &
 sleep 5
 echo "Configure YP-SPUR"
 ros2 lifecycle set /yp_spur_lifecycle_wrapper configure
+sleep 1
 echo "ACTIVATE YP-SPUR"
 ros2 lifecycle set /yp_spur_lifecycle_wrapper activate
 
@@ -43,7 +44,7 @@ sleep 3
 
 echo "Launch TF and SCAN-MERGER and JOY"
 ros2 launch edu_robot static_transforms.launch.py &
-sleep 1
+sleep 3
 ros2 launch edu_robot laser_scan_merger.launch.py &
 sleep 1
 
