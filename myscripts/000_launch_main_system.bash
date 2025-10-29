@@ -28,7 +28,7 @@ sleep 3
 
 echo "Launch URG"
 ros2 launch edu_robot urg_node2.launch.py &
-sleep 3
+sleep 7
 echo "CONFIGURE URG1"
 ros2 lifecycle set /urg_node2_1st configure
 echo "ACTIVATE URG1"
@@ -43,7 +43,9 @@ sleep 3
 
 echo "Launch TF and SCAN-MERGER and JOY"
 ros2 launch edu_robot static_transforms.launch.py &
+sleep 1
 ros2 launch edu_robot laser_scan_merger.launch.py &
+sleep 1
 
 echo "Launch TELEOP"
 ros2 launch edu_robot teleop.launch.py &

@@ -27,6 +27,8 @@ shopt -u nullglob
 sleep 3;
 #
 
+killall joy_node
+
 echo "[reset] starting ros2 daemon..."
 ros2 daemon start || true
 
