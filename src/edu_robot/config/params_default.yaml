@@ -266,7 +266,6 @@ controller_server:
     min_theta_velocity_threshold: 0.001
     progress_checker_plugins: ["progress_checker"] # progress_checker_plugin: "progress_checker" For Humble and older
     goal_checker_plugins: ["goal_checker"]
-    #controller_plugins: ["RotationShim", "FollowPath"]
     controller_plugins: ["FollowPath"]
 
     progress_checker:
@@ -275,16 +274,9 @@ controller_server:
       movement_time_allowance: 10.0
     goal_checker:
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 0.25
-      yaw_goal_tolerance: 0.25
+      xy_goal_tolerance:  0.15 # 0.25
+      yaw_goal_tolerance: 1.00 # 0.25
       stateful: True
-#    RotationShim:
-#      plugin: "nav2_rotation_shim_controller::RotationShimController"
-#      primary_controller: "FollowPath"           # the controller plugin that will do path tracking
-#      forward_sampling_distance: 0.8             # how far ahead to sample to determine heading
-#      turn_in_place: true                        # allow in-place turning
-#      rotate_to_goal_heading: true               # <-- enables rotation-to-goal when within XY tolerance
-#      rotation_allowed_angle: 0.35               # rad: threshold to decide to rotate first (tune as needed)
     FollowPath:
       plugin: "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController"
       desired_linear_vel: 0.2 # 0.5
@@ -292,7 +284,7 @@ controller_server:
       min_lookahead_dist: 0.2 # 0.3
       max_lookahead_dist: 0.6 # 0.9
       lookahead_time: 1.5
-      rotate_to_heading_angular_vel: 1.8
+      rotate_to_heading_angular_vel: 1.1 # org 1.8
       #transform_tolerance: 0.1
       transform_tolerance: 1.0
       use_velocity_scaled_lookahead_dist: false
@@ -310,7 +302,9 @@ controller_server:
       regulated_linear_scaling_min_speed: 0.25
       use_rotate_to_heading: true
       allow_reversing: false
-      rotate_to_heading_min_angle: 0.785
+      use_rotate_to_heading: true
+      allow_reversing: false
+      rotate_to_heading_min_angle: 0.785 # 45 deg
       max_angular_accel: 3.2
       max_robot_pose_search_dist: 10.0
       min_distance_to_obstacle: 0.0
@@ -406,6 +400,6 @@ planner_server:
     planner_plugins: ["GridBased"]
     GridBased:
       plugin: "nav2_navfn_planner/NavfnPlanner"
-      tolerance: 1.0    # 0.5
+      tolerance: 0.5    # 1.0 # org 0.5
       use_astar: false
       allow_unknown: true

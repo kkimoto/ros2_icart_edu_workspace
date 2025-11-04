@@ -10,6 +10,7 @@ from builtin_interfaces.msg import Time
 # File handling imports
 import os
 import json # <--- Import added for JSON file reading
+import math
 
 class SequentialNavigator(Node):
     """
@@ -164,10 +165,24 @@ def load_waypoints_from_file(file_path):
 def main(args=None):
     # --- Define the name of your waypoint file ---
     # Ensure this file is in the same directory as the script, or provide a full path.
-    WAYPOINT_FILE = 'wpdata/wp.json'
+    #WAYPOINT_FILE = 'wpdata/wp.json'
+    WAYPOINT_FILE = 'wpdata/wp.txt' # x,y,angle_degree
     # ---------------------------------------------
     
-    waypoints_list = load_waypoints_from_file(WAYPOINT_FILE)
+    xya_list = load_waypoints_from_file(WAYPOINT_FILE)
+    waypoints_list = list()
+    for xya in xya_list:
+        x = xya[0]
+        y = xya[1]
+        ang = xya[2]
+        th  = math.radians(ang)
+        waypoints_list.append( [ [x,y,0.0],[0.0,0.0,math.sin(th/2.0), math.cos(th/2.0)] ] )
+        print(f"waipoint: {x:.3} {y:.3} {ang:.3}")
+
+    print(waypoints_list)
+    #for wp in waypoints_list:
+    #    print(wp)
+    #exit()
 
     if not waypoints_list:
         print("No waypoints loaded. Exiting.")
