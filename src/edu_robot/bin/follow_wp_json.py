@@ -166,7 +166,7 @@ def main(args=None):
     # --- Define the name of your waypoint file ---
     # Ensure this file is in the same directory as the script, or provide a full path.
     #WAYPOINT_FILE = 'wpdata/wp.json'
-    WAYPOINT_FILE = 'wpdata/wp.txt' # x,y,angle_degree
+    WAYPOINT_FILE = 'wpdata/wp_xya.json' # x,y,angle_degree
     # ---------------------------------------------
     
     xya_list = load_waypoints_from_file(WAYPOINT_FILE)

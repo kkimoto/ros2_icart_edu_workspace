@@ -81,10 +81,19 @@ slam_toolbox:
     # Plugin params
     solver_plugin: solver_plugins::CeresSolver
     ceres_linear_solver: SPARSE_NORMAL_CHOLESKY
-    ceres_preconditioner: SCHUR_JACOBI
-    ceres_trust_strategy: LEVENBERG_MARQUARDT
-    ceres_dogleg_type: TRADITIONAL_DOGLEG
-    ceres_loss_function: None
+
+    # Ver1
+    #ceres_preconditioner: SCHUR_JACOBI
+    #    ceres_trust_strategy: LEVENBERG_MARQUARDT
+    #    #not dog leg#    ceres_dogleg_type: TRADITIONAL_DOGLEG
+    #    ceres_loss_function: None
+
+    # Ver2
+    ceres_loss_function: Huber       # 外れ値に強くする（None より推奨）
+    ceres_loss_width: 0.4            # Huber の delta。単位はメートル（経験値で調整）
+    ceres_max_num_iterations: 50     # 最大繰返し（例）
+    ceres_function_tolerance: 1e-6
+    ceres_parameter_tolerance: 1e-8
 
     # ROS Parameters
     odom_frame: odom
@@ -119,8 +128,8 @@ slam_toolbox:
     # General Parameters
     use_scan_matching: true
     use_scan_barycenter: true
-    minimum_travel_distance: 0.5
-    minimum_travel_heading: 0.5
+    minimum_travel_distance: 0.1 # original 0.5 is too big
+    minimum_travel_heading:  0.1 # original 0.5 is too big
     scan_buffer_size: 10
     scan_buffer_maximum_scan_distance: 10.0
     link_match_minimum_response_fine: 0.1  
@@ -153,7 +162,7 @@ slam_toolbox:
     minimum_distance_penalty: 0.5
     use_response_expansion: true
     min_pass_through: 2
-    occupancy_threshold: 0.1
+    occupancy_threshold: 0.1  #?0.5# original 0.1 is too low
 
 teleop_twist_joy_node:
   ros__parameters:
