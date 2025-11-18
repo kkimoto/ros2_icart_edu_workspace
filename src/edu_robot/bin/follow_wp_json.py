@@ -71,6 +71,7 @@ class SequentialNavigator(Node):
 
         self.get_logger().info(f'🚀 Sending goal {self.current_goal_index + 1}/{len(self.waypoints)} '
                                f'to ({goal_pose.pose.position.x:.2f}, {goal_pose.pose.position.y:.2f})...')
+        print('goal', goal_pose)
 
         # --- 2. Send the Goal and Get a Future ---
         self._send_goal_future = self._action_client.send_goal_async(
