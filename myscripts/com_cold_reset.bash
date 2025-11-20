@@ -23,11 +23,12 @@ done
 shopt -u nullglob
 
 # added
-#killall -w -r ros2 || true
+killall -w -r ros2 || true
 sleep 3;
 #
 
 killall joy_node
+killall icart_mini_driver
 
 echo "[reset] starting ros2 daemon..."
 ros2 daemon start || true

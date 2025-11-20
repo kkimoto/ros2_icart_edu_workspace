@@ -16,7 +16,7 @@ ros2 lifecycle set /yp_spur_lifecycle_wrapper activate
 
 echo "Launch ICART"
 ros2 launch edu_robot icart.launch.py &
-sleep 3
+sleep 5
 echo "CONFIGURE ICART"
 ros2 lifecycle set /icart_lifecycle_wrapper configure
 echo "ACTIVATE ICART"

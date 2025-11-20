@@ -250,7 +250,7 @@ amcl:
     max_particles: 2000
     # new by kimoto below
     laser_min_range: 0.1
-    laser_max_range: 10.0
+    laser_max_range: 20.0
 
     # measurement and motion model params (examples)
     kld_err: 0.01
@@ -296,7 +296,7 @@ controller_server:
       stateful: True
     FollowPath:
       plugin: "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController"
-      desired_linear_vel: 0.12 # 0.15 # 0.2 # 0.5
+      desired_linear_vel: 0.2  #0.12 # 0.15 # 0.2 # 0.5
       lookahead_dist: 0.5 # 0.4 # 0.6
       min_lookahead_dist: 0.2 # 0.3
       max_lookahead_dist: 0.8 # 0.6 # 0.9
