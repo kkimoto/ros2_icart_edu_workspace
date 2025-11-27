@@ -1,3 +1,33 @@
- 5.0  -26  -90
--1.0   15   90
- 0      0  180
+
+
+
+### pattern B
+-0.8  -3.8   180  # 3. takahashi's desk
+ 5.0  -7.0    -45  # 4. gijutu foloor
+-1.0  -15    -180  # 6. Elevator hall
+ 5.0  -26    -90   # 5. software floor
+ 5.0  -7.0    -45  # 4. gijutu foloor
+#-0.8  -3.8   180  # 3. takahashi's desk
+#-0.8    0    -180  # 7. wada's desk
+#   0    0     0    # 1. origin
+
+
+### pattern A
+#-0.8  -3.8   180   # 3. takahashi's desk
+# 5.0  -7.0    -45  # 4. gijutu foloor
+ 5.0  -26    -90   # 5. software floor
+-1.0  -15    -180  # 6. Elevator hall
+ 5.0  -7.0    -45  # 4. gijutu foloor
+-0.8  -3.8   180   # 3. takahashi's desk
+-0.8    0    -180  # 7. wada's desk
+   0    0     0    # 1. origin
+
+
+# point LIST
+#   0     0     0  # 1. origin
+# 1.5  -3.5   -45  # 2. danball
+#-0.8  -3.8   180  # 3. takahashi's desk
+# 5.0  -7.0   -45  # 4. gijutu foloor
+# 5.0  -26    -90  # 5. software floor
+#-1.0  -15   -180  # 6. Elevator hall
+#-0.8    0   -180  # 7. wada's desk

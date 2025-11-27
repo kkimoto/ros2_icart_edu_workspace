@@ -43,6 +43,13 @@ echo "ACTIVATE URG2"
 ros2 lifecycle set /urg_node2_2nd activate
 sleep 3
 
+#echo "Launch YVT"
+#ros2 launch edu_robot urg3d_node2.launch.py &
+#sleep 3
+#ros2 lifecycle set /yvt_3d configure
+#sleep 1
+#ros2 lifecycle set /yvt_3d activate
+
 # utility
 
 echo "Launch TF and SCAN-MERGER and JOY"

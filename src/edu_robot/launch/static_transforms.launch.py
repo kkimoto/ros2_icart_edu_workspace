@@ -67,10 +67,27 @@ def generate_launch_description():
             output="screen",
             respawn=True,
             arguments=[
-                "--x", "-0.082", "--y", "0.0", "--z", "0.10",
+                "--x", "0.082", "--y", "0.0", "--z", "0.10",
                 "--roll", "0.0", "--pitch", "0.0", "--yaw", "3.141592653589793",
                 "--frame-id", "base_link",
                 "--child-frame-id", "laser_frame_2"
+            ],
+        )
+    )
+
+    # base_link -> hokuyo3d
+    nodes.append(
+        Node(
+            package="tf2_ros",
+            executable="static_transform_publisher",
+            name="static_tf_base_link_to_hokuyo3d",
+            output="screen",
+            respawn=True,
+            arguments=[
+                "--x", "0.050", "--y", "0.0", "--z", "0.10",
+                "--roll", "3.141592653589793", "--pitch", "0.0", "--yaw", "0.0",
+                "--frame-id", "base_link",
+                "--child-frame-id", "hokuyo3d"
             ],
         )
     )
