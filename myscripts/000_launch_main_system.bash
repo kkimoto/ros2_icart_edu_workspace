@@ -1,6 +1,12 @@
 
 source install/setup.bash
 
+# TF
+
+echo "Launch TF and SCAN-MERGER and JOY"
+ros2 launch edu_robot static_transforms.launch.py &
+sleep 1
+
 #
 # locomotion system (life cycle unconfigured)
 #
@@ -43,18 +49,16 @@ echo "ACTIVATE URG2"
 ros2 lifecycle set /urg_node2_2nd activate
 sleep 3
 
-#echo "Launch YVT"
-#ros2 launch edu_robot urg3d_node2.launch.py &
-#sleep 3
-#ros2 lifecycle set /yvt_3d configure
-#sleep 1
-#ros2 lifecycle set /yvt_3d activate
-
-# utility
-
-echo "Launch TF and SCAN-MERGER and JOY"
-ros2 launch edu_robot static_transforms.launch.py &
+echo "Launch YVT"
+ros2 launch edu_robot urg3d_node2.launch.py &
+sleep 3
+ros2 lifecycle set /yvt_3d configure
 sleep 1
+ros2 lifecycle set /yvt_3d activate
+sleep 3
+ros2 launch edu_robot yvt_to_scan.launch.py &
+
+# scan merger
 ros2 launch edu_robot laser_scan_merger.launch.py &
 sleep 1
 

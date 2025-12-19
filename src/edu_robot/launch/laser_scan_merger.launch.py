@@ -23,6 +23,7 @@ def generate_launch_description():
     # Launch Argumentの定義 (トピック名をLaunchファイル側で制御するため)
     scan_topic_name_1st_arg = DeclareLaunchArgument('scan_topic_name_1st', default_value='scan_1st')
     scan_topic_name_2nd_arg = DeclareLaunchArgument('scan_topic_name_2nd', default_value='scan_2nd')
+    scan_topic_name_3rd_arg = DeclareLaunchArgument('scan_topic_name_3rd', default_value='scan_3rd')
 
     
     # 2. ComposableNodeContainer を起動し、その中に Merging コンポーネントをロードする
@@ -44,6 +45,7 @@ def generate_launch_description():
                 remappings=[
                     ('scan_in_1', LaunchConfiguration('scan_topic_name_1st')),
                     ('scan_in_2', LaunchConfiguration('scan_topic_name_2nd')),
+                    ('scan_in_3', LaunchConfiguration('scan_topic_name_3rd')),
                     ('scan_out', 'scan_merged'),
                 ],
             )
@@ -54,5 +56,6 @@ def generate_launch_description():
     return LaunchDescription([
         scan_topic_name_1st_arg,
         scan_topic_name_2nd_arg,
+        scan_topic_name_3rd_arg,
         merger_container,
     ])

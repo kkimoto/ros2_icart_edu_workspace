@@ -51,11 +51,12 @@ yvt_3d:
     error_reset_period: 10.0
     diagnostics_tolerance: 0.05
     diagnostics_window_time: 5.0
+
 scan_merger:
   ros__parameters:
     # Inputs (max 9 lidars)
-    scan_topics: ["/scan_1st", "/scan_2nd"]
-    frames: ["laser_frame_1", "laser_frame_2"]
+    scan_topics: ["/scan_1st", "/scan_2nd", "/yvt_2dscan"]
+    frames: ["laser_frame_1", "laser_frame_2", "hokuyo3d"]
     scan_policies: [0, 0]  # reliability policy ros2 topic: 0=reliable, 1=best effort
     # Output
     merged_frame_id: "base_scan"
@@ -258,9 +259,8 @@ amcl:
     update_min_d: 0.1  # 0.2
     update_min_a: 0.15 # 0.2
 
+    ## default initial pose at map origin
     set_initial_pose: true
-
-    # default initial pose at map origin
     initial_pose_x: 0.0
     initial_pose_y: 0.0
     initial_pose_a: 0.0          # yaw in radians
@@ -298,7 +298,7 @@ controller_server:
       plugin: "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController"
       desired_linear_vel: 0.2  #0.12 # 0.15 # 0.2 # 0.5
       lookahead_dist: 0.5 # 0.4 # 0.6
-      min_lookahead_dist: 0.2 # 0.3
+      min_lookahead_dist: 0.5 #0.2 # 0.3
       max_lookahead_dist: 0.8 # 0.6 # 0.9
       lookahead_time: 1.5
       #transform_tolerance: 0.1
@@ -404,8 +404,8 @@ local_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         enabled: True
-        cost_scaling_factor: 4.0 # 3.0
-        inflation_radius:    0.25  #0.55
+        cost_scaling_factor: 1.0 #4.0 # 3.0
+        inflation_radius:    0.25 #NG0.4 #0.35 #0.30  #0.55
 
 # planne 1
 #planner_server:
@@ -457,3 +457,18 @@ planner_server:
       retrospective_penalty: 0.015
       lookup_table_size: 20.0
       smooth_path: true
+
+# 3D to 2D converter
+pointcloud_to_laserscan:
+  ros__parameters:
+    cloud_in: "/hokuyo_cloud2"
+    scan: "/yvt_scan"
+    angle_min: -1.8
+    angle_max: 1.8
+    angle_increment: 0.06666
+    min_height: 0.050
+    max_height: 2.0
+    range_min: 0.10
+    range_max: 30.0
+    use_inf: true
+    queue_size: 10

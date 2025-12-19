@@ -45,6 +45,7 @@ def generate_launch_description():
         pkg_share = get_package_share_directory('edu_robot')
         default_map = os.path.join(pkg_share, 'map', 'map.yaml')
         default_params = os.path.join(pkg_share, 'config', 'params_default.yaml')
+        #default_params = os.path.join(pkg_share, 'config', 'params_default_nav2.yaml')
     except PackageNotFoundError:
         # Edit these workspace fallbacks if your workspace location differs
         workspace_root = os.path.expanduser('/home/kimoto/ros2_workspace/edu_ws')
