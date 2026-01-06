@@ -1,1 +1,1 @@
-rm -fr ~/.ros/log/2025*
+rm -fr ~/.ros/log/*
