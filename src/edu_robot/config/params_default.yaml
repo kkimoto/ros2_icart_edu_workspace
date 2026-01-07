@@ -299,15 +299,15 @@ controller_server:
       plugin: "nav2_mppi_controller::MPPIController"
 
       time_steps: 56
-      model_dt: 0.05
+      model_dt: 0.05 #koko#0.10 # 0.05
       batch_size: 1000
-      vx_std: 0.2
+      vx_std: 0.1 # 0.2
       vy_std: 0.0
-      wz_std: 0.4
+      wz_std: 0.2 # 0.4
 
-      vx_max: 0.6
+      vx_max: 0.3 # 0.6
       vx_min: 0.0
-      wz_max: 1.0
+      wz_max: 0.5 # 1.0
 
       iteration_count: 1
 
@@ -317,19 +317,35 @@ controller_server:
       critics:
         - GoalCritic
         - PathFollowCritic
+        - PathAngleCritic
         - ObstaclesCritic
+#        - VelocityDeadbandCritic
+#        - GoalAngleCritic
 
       GoalCritic:
-        scale: 5.0
+        cost_weight: 2.0 #5.0
 
       PathFollowCritic:
-        scale: 5.0
-        offset_from_furthest: 5 ## false
+        cost_weight: 12.0 #5.0
+        offset_from_furthest: 3 #5
+        threshold_to_consider: 0.5 
 
-      ObstacleCritic:
-        scale: 1.0
-        collision_cost: 10000.0
-        inflation_radius: 0.25
+      PathAngleCritic:
+        cost_weight: 6.0 #4.0 # more high, more straight to go
+        threshold_to_consider: 0.5
+        max_angle_to_furthest: 1.0
+
+      ObstaclesCritic:
+        collision_cost: 200.0 #100.0  # 10000.0
+        cost_weight: 10000.0 #100.0
+        inflation_radius: 0.3 #0.25
+
+#      GoalAngleCritic:
+#        weight: 3.0
+
+#      VelocityDeadbandCritic:
+#        weight: 2.0
+#        deadband_velocities: [0.15, 0.0, 0.2]  # [vx, vy, wz]
 
 
 ##--DWB minimal--
@@ -470,37 +486,37 @@ local_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         enabled: True
-        cost_scaling_factor: 1.0 #4.0 # 3.0
-        inflation_radius:    0.25 #NG0.4 #0.35 #0.30  #0.55
+        cost_scaling_factor: 1.0 #koko#3.0 # 1.0 #4.0
+        inflation_radius:    0.25 #koko#0.29 # 0.25
 
 # planne 1
-#planner_server:
-#  ros__parameters:
-#    global_costmap_name: global_costmap
-#    local_costmap_name: local_costmap
-#    robot_base_frame: base_footprint
-#    use_sim_time: false
-#    planner_plugins: ["GridBased"]
-#    GridBased:
-#      plugin: "nav2_navfn_planner/NavfnPlanner"
-#      tolerance: 0.5    # 1.0 # org 0.5
-#      use_astar: false
-#      allow_unknown: true
-
-# planne 2
 planner_server:
   ros__parameters:
     global_costmap_name: global_costmap
     local_costmap_name: local_costmap
     robot_base_frame: base_footprint
     use_sim_time: false
-    
     planner_plugins: ["GridBased"]
     GridBased:
-      plugin: "nav2_smac_planner/SmacPlannerHybrid"
-      tolerance: 0.5
+      plugin: "nav2_navfn_planner/NavfnPlanner"
+      tolerance: 0.5    # 1.0 # org 0.5
+      use_astar: false
       allow_unknown: true
-      max_iterations: 1000000
+
+# planne 2
+#planner_server:
+#  ros__parameters:
+#    global_costmap_name: global_costmap
+#    local_costmap_name: local_costmap
+#    robot_base_frame: base_footprint
+#    use_sim_time: false
+#    
+#    planner_plugins: ["GridBased"]
+#    GridBased:
+#      plugin: "nav2_smac_planner/SmacPlannerHybrid"
+#      tolerance: 0.5
+#      allow_unknown: true
+#      max_iterations: 1000000
 
       # to rotate
       ##this-goes-back-do-not-use## motion_model_for_search: "REEDS_SHEPP"
@@ -515,7 +531,9 @@ planner_server:
       angle_quantization_bins: 72
       analytic_expansion_ratio: 3.5
       analytic_expansion_max_length: 3.0
-      minimum_turning_radius: 0.25  # according to the robot size
+
+      minimum_turning_radius: 0.00   # turning here # according to the robot size#0.25
+
       reverse_penalty: 2.0
       change_penalty: 0.0
       non_straight_penalty: 1.2

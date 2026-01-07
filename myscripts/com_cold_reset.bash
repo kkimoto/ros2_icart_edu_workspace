@@ -11,6 +11,8 @@ pkill -f ros2 || true
 pkill -f python3.*launch || true
 pkill -f urg_node2_node || true
 pkill -f static_transform_publisher || true
+pkill -f ros
+pkill -f nav2
 
 echo "[reset] clearing latest logs..."
 rm -rf ~/.ros/log/latest || true
@@ -36,3 +38,5 @@ ros2 daemon start || true
 echo "[reset] done. Now re-source your overlays in order:"
 echo "  source /opt/ros/humble/setup.bash"
 echo "  source ~/ros2_workspaces/edu_ws/install/setup.bash"
+
+rm /dev/shm/fastrtps

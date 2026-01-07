@@ -65,5 +65,5 @@ sleep 1
 echo "Launch TELEOP"
 ros2 launch edu_robot teleop.launch.py &
 
-sleep 2
+sleep 5
 echo "main_system DONE"
