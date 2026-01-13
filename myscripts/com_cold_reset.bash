@@ -31,6 +31,7 @@ sleep 3;
 
 killall joy_node
 killall icart_mini_driver
+killall ypspur-coordinator
 
 echo "[reset] starting ros2 daemon..."
 ros2 daemon start || true
