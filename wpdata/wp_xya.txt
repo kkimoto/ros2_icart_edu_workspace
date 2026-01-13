@@ -1,12 +1,13 @@
 
 ### pattern B
- 5.0  -7.0    -45  # 4. gijutu foloor-East
-# 0.5   0.15    0    # 1b. turning point
+ 5.0  -7.0    -45  # gijutu foloor-East (go down)
 # -0.6  -3.5   180  # 3. takahashi's desk
-# -5.0  -15    -180  # 6. Elevator hall (chuo oku)
-# 3.8  -21    -90   # 5b. gijutsu-West
-# 6.5  -29    -90   # 5c. software floor(oku)
 # 5.0  -26    -90   # 5. software floor
+# -5.0  -15    -180  # 6. Elevator hall (chuo oku)
+# 3.8  -21    -90   # gijutsu-West
+# 5.0  -7.0    90  # gijutu foloor-East (go north)
+# 0.5   0.15    0    # 1b. turning point
+# 6.5  -29    -90   # 5c. software floor(oku)
 # -5.0  -15    -180  # 6. Elevator hall (chuo oku)
 # 0.0  -3.73     0  # 3. takahashi's desk2
 # 0.8  -15    0     # 6c. Elevator hall 3
@@ -14,7 +15,6 @@
 # -3.0  -14    -180  # 6. Elevator hall (chuo)
 # 5.0  -26    -90   # 5. software floor
 #-2.0  -14    -180  # 6. Elevator hall
-# 5.0  -7.0    -45  # 4. gijutu foloor-East
 #-0.6  -3.5   180  # 3. takahashi's desk
 -0.8    0    -180  # 7. wada's desk
    0    0     0    # 1. origin
