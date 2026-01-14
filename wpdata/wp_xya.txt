@@ -16,7 +16,7 @@
 # 5.0  -26    -90   # 5. software floor
 #-2.0  -14    -180  # 6. Elevator hall
 #-0.6  -3.5   180  # 3. takahashi's desk
--0.8    0    -180  # 7. wada's desk
+#-0.8    0    -180  # 7. wada's desk
    0    0     0    # 1. origin
 
 
