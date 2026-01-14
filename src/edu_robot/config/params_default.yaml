@@ -1,3 +1,5 @@
+# ver 1.001
+
 lidar1:
   ros__parameters:
     ip_address: 192.168.1.11
@@ -40,7 +42,7 @@ yvt_3d:
     ip_port: 10940
     frame_id: hokuyo3d
     range_min: 0.1
-    interlace_h: 4
+    interlace_h: 1 #4
     interlace_v: 1
     output_cycle: frame
     publish_intensity: true
@@ -55,27 +57,30 @@ yvt_3d:
 scan_merger:
   ros__parameters:
     # Inputs (max 9 lidars)
-    scan_topics: ["/scan_1st", "/scan_2nd", "/yvt_2dscan"]
-    frames: ["laser_frame_1", "laser_frame_2", "hokuyo3d"]
+#   scan_topics: ["/scan_1st", "/scan_2nd", "/yvt_2dscan"]
+    scan_topics: ["/scan_1st", "/scan_2nd"]
+#   frames: ["laser_frame_1", "laser_frame_2", "hokuyo3d"]
+    frames: ["laser_frame_1", "laser_frame_2"]
     scan_policies: [0, 0]  # reliability policy ros2 topic: 0=reliable, 1=best effort
     # Output
     merged_frame_id: "base_scan"
     use_sim_time: false
 
-    tolerance: 0.01
+    tolerance: 0.5 #0.2 #0.1 #0.01
     min_height: -1.0
     max_height:  1.0
     angle_min: -3.141592653589793
     angle_max:  3.141592653589793
     angle_increment: 0.004363323096185923  # 0.25 deg
-    scan_time: 0.025                       # 40 Hz
+    scan_time: 0.05 #0.025 # sec
     range_min: 0.06
     range_max: 100.0
     inf_epsilon: 1.0
     use_inf: false   # true
-    queue_size: 100  # 20 # Queue size for approximate filter
+    queue_size: 5 #100  # 20 # Queue size for approximate filter
     debug: true
     moving_frames: false
+
 slam_toolbox:
   ros__parameters:
 
@@ -241,7 +246,7 @@ amcl:
     #base_frame_id: base_link
     base_frame_id: base_footprint
     global_frame_id: map
-    transform_tolerance: 1.0  # Set to 1.0 seconds (common value for real hardware)
+    transform_tolerance: 2.0 #1.0  # Set to 1.0 seconds (common value for real hardware)
     alpha1: 0.2
     alpha2: 0.2
     alpha3: 0.2
@@ -257,7 +262,8 @@ amcl:
     kld_err: 0.01
     kld_z: 0.99
     update_min_d: 0.1  # 0.2
-    update_min_a: 0.15 # 0.2
+    update_min_a: 0.2
+    tf_broadcast: true  # 2026-01-13
 
     ## default initial pose at map origin
     set_initial_pose: true
@@ -277,7 +283,7 @@ controller_server:
     robot_base_frame: base_footprint      # ← yes, matches your TF tree
     use_sim_time: false                   # ← optional, but fine
 
-    controller_frequency: 20.0
+    controller_frequency: 10.0 # 20.0
     min_x_velocity_threshold: 0.005 #0.001
     min_y_velocity_threshold: 0.005 #0.001
     min_theta_velocity_threshold: 0.005 #0.001
@@ -298,9 +304,9 @@ controller_server:
     FollowPath:
       plugin: "nav2_mppi_controller::MPPIController"
 
-      time_steps: 56
-      model_dt: 0.05 #koko#0.10 # 0.05
-      batch_size: 1000
+      time_steps: 40 #56
+      model_dt: 0.10 #0.1 for 10Hz ### 0.05 #koko#0.10 # 0.05
+      batch_size: 600 #1000
       vx_std: 0.05 #0.1 # 0.2
       vy_std: 0.0
       wz_std: 0.3 #0.2 # 0.4
@@ -428,7 +434,7 @@ global_costmap:
       rolling_window: false
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
       # Increased tolerance to prevent time-related transform errors (critical)
-      transform_tolerance: 1.0
+      transform_tolerance: 3.0 #1.0
 
       # Static Layer (for the map)
       static_layer:
@@ -444,7 +450,16 @@ global_costmap:
         enabled: True
         # Uses the merged scan topic you defined
         observation_sources: scan_merger_source
-        scan_merger_source: {topic: /merged_scan, max_obstacle_height: 2.0, clearing: True, marking: True, data_type: "LaserScan", min_range: 0.0, max_range: 20.0, inf_is_valid: False}
+        scan_merger_source:
+         topic: /merged_scan
+         max_obstacle_height: 2.0
+         clearing: True
+         marking: True
+         data_type: "LaserScan"
+         min_range: 0.0
+         max_range: 5.0 # 20.0
+         raytrace_max_range: 3.0 # Add this to stop clearing pixels too far away
+         obstacle_max_range: 2.5 # Add this to only mark obstacles within 2.5m
 
       # Inflation Layer (for robot padding)
       inflation_layer:
@@ -479,9 +494,26 @@ local_costmap:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
         # Uses the merged scan topic you defined
-        observation_sources: scan_merger_source
-        scan_merger_source: {topic: /merged_scan, max_obstacle_height: 2.0, clearing: True, marking: True, data_type: "LaserScan", min_range: 0.0, max_range: 20.0, inf_is_valid: False}
-      
+        observation_sources: scan_merger_source yvt_source
+        scan_merger_source: 
+          topic: /merged_scan
+          max_obstacle_height: 2.0
+          clearing: True
+          marking: True
+          data_type: "LaserScan"
+          min_range: 0.0
+          max_range: 5.0 #20.0
+          inf_is_valid: False
+        yvt_source:
+#          topic: /yvt_2dscan  # もしくは /yvt_scan (pointcloud_to_laserscanの出力)
+          topic: /yvt_scan
+          max_obstacle_height: 2.0
+          clearing: True
+          marking: True
+          data_type: "LaserScan"
+          min_range: 0.1
+          max_range: 30.0
+
       # Inflation Layer (for robot padding)
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
@@ -555,4 +587,4 @@ pointcloud_to_laserscan:
     range_min: 0.10
     range_max: 30.0
     use_inf: true
-    queue_size: 10
+    queue_size: 2 #10
