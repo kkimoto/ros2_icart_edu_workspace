@@ -1,12 +1,12 @@
-# ver 1.001
+# ver 1.003
 
 lidar1:
   ros__parameters:
     ip_address: 192.168.1.11
     ip_port: 10940
     frame_id: laser_frame_1
-    calibrate_time: false
-    synchronize_time: false
+    calibrate_time:   true #false
+    synchronize_time: true #false
     publish_intensity: true
     publish_multiecho: false
     error_limit: 4
@@ -23,8 +23,8 @@ lidar2:
     ip_address: 192.168.1.12
     ip_port: 10940
     frame_id: laser_frame_2
-    calibrate_time: false
-    synchronize_time: false
+    calibrate_time:   true #false
+    synchronize_time: true #false
     publish_intensity: true
     publish_multiecho: false
     error_limit: 4
@@ -47,8 +47,8 @@ yvt_3d:
     output_cycle: frame
     publish_intensity: true
     publish_auxiliary: false
-    calibrate_time: false
-    synchronize_time: false
+    calibrate_time:   true #false
+    synchronize_time: true #false
     error_limit: 4
     error_reset_period: 10.0
     diagnostics_tolerance: 0.05
@@ -241,7 +241,8 @@ amcl:
   ros__parameters:
     use_sim_time: false
     odom_topic: /odom
-    scan_topic: /merged_scan
+#    scan_topic: /merged_scan
+    scan_topic: /scan_1st
     odom_frame_id: odom
     #base_frame_id: base_link
     base_frame_id: base_footprint
@@ -451,15 +452,16 @@ global_costmap:
         # Uses the merged scan topic you defined
         observation_sources: scan_merger_source
         scan_merger_source:
-         topic: /merged_scan
-         max_obstacle_height: 2.0
-         clearing: True
-         marking: True
-         data_type: "LaserScan"
-         min_range: 0.0
-         max_range: 5.0 # 20.0
-         raytrace_max_range: 3.0 # Add this to stop clearing pixels too far away
-         obstacle_max_range: 2.5 # Add this to only mark obstacles within 2.5m
+#          topic: /merged_scan
+          topic: /scan_1st
+          max_obstacle_height: 2.0
+          clearing: True
+          marking: True
+          data_type: "LaserScan"
+          min_range: 0.0
+          max_range: 5.0 # 20.0
+          raytrace_max_range: 3.0 # Add this to stop clearing pixels too far away
+          obstacle_max_range: 2.5 # Add this to only mark obstacles within 2.5m
 
       # Inflation Layer (for robot padding)
       inflation_layer:
@@ -496,7 +498,8 @@ local_costmap:
         # Uses the merged scan topic you defined
         observation_sources: scan_merger_source yvt_source
         scan_merger_source: 
-          topic: /merged_scan
+#          topic: /merged_scan
+          topic: /scan_1st
           max_obstacle_height: 2.0
           clearing: True
           marking: True
