@@ -2,7 +2,6 @@
 
 import launch
 import launch_ros
-
 from launch import LaunchDescription
 from launch_ros.actions import LifecycleNode
 from launch.actions import EmitEvent, RegisterEventHandler, TimerAction
@@ -13,7 +12,7 @@ from lifecycle_msgs.msg import Transition
 import launch.events
 
 def generate_launch_description():
-    # 1. ノード定義
+    # 1. ノード定義 (2026.01.14 haruyama8940/icart_mini_driver_ros2 では パラメータが反映されない。固定値)
     icart_node = LifecycleNode(
         package='edu_robot',
         executable='icart_lifecycle_wrapper',
