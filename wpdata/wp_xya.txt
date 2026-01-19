@@ -1,8 +1,7 @@
 
 ### pattern B
- -0.6  -3.5   180  # 3. takahashi's desk
+# -0.6  -3.5   180  # 3. takahashi's desk
  5.0  -7.0    -45  # gijutu foloor-East (go down)
- -0.6  -3.5   180  # 3. takahashi's desk
 -0.8    0    -180  # 7. wada's desk
    0    0     0    # 1. origin
 

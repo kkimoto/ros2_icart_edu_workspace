@@ -241,8 +241,8 @@ amcl:
   ros__parameters:
     use_sim_time: false
     odom_topic: /odom
-#    scan_topic: /merged_scan
-    scan_topic: /scan_1st
+    scan_topic: /merged_scan
+#    scan_topic: /scan_1st
     odom_frame_id: odom
     #base_frame_id: base_link
     base_frame_id: base_footprint
@@ -452,8 +452,8 @@ global_costmap:
         # Uses the merged scan topic you defined
         observation_sources: scan_merger_source
         scan_merger_source:
-#          topic: /merged_scan
-          topic: /scan_1st
+          topic: /merged_scan
+#          topic: /scan_1st
           max_obstacle_height: 2.0
           clearing: True
           marking: True
@@ -498,8 +498,8 @@ local_costmap:
         # Uses the merged scan topic you defined
         observation_sources: scan_merger_source yvt_source
         scan_merger_source: 
-#          topic: /merged_scan
-          topic: /scan_1st
+          topic: /merged_scan
+#          topic: /scan_1st
           max_obstacle_height: 2.0
           clearing: True
           marking: True
