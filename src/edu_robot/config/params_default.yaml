@@ -47,8 +47,8 @@ yvt_3d:
     output_cycle: frame
     publish_intensity: true
     publish_auxiliary: false
-    calibrate_time:   true #false
-    synchronize_time: true #false
+    calibrate_time:   false #true #false
+    synchronize_time: false #true #false
     error_limit: 4
     error_reset_period: 10.0
     diagnostics_tolerance: 0.05
@@ -498,8 +498,7 @@ local_costmap:
         # Uses the merged scan topic you defined
         observation_sources: scan_merger_source yvt_source
         scan_merger_source: 
-          topic: /merged_scan
-#          topic: /scan_1st
+          topic: /merged_scan # /scan_1st
           max_obstacle_height: 2.0
           clearing: True
           marking: True
@@ -508,14 +507,18 @@ local_costmap:
           max_range: 5.0 #20.0
           inf_is_valid: False
         yvt_source:
-#          topic: /yvt_2dscan  # もしくは /yvt_scan (pointcloud_to_laserscanの出力)
-          topic: /yvt_scan
+          topic: /yvt_2dscan
           max_obstacle_height: 2.0
           clearing: True
           marking: True
           data_type: "LaserScan"
           min_range: 0.1
           max_range: 30.0
+
+# when you use 3D /yvt_scan
+# data_type: "PointCloud2"
+# nav2_costmap_2d::VoxelLaye
+# additiona tune.
 
       # Inflation Layer (for robot padding)
       inflation_layer:
