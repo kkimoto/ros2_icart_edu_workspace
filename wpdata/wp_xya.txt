@@ -1,12 +1,29 @@
 
+# loop1
+ -0.6  -3.6   180  # 3. takahashi's desk(lower)
+ -0.8    0    -180 # 7. wada's desk
+   0    0     0    # 1. origin
+# loop2
+ -0.6  -3.6   180  # 3. takahashi's desk(lower)
+ -0.8    0    -180 # 7. wada's desk
+   0    0     0    # 1. origin
+# loop3
+ -0.6  -3.6   180  # 3. takahashi's desk(lower)
+ -0.8    0    -180 # 7. wada's desk
+   0    0     0    # 1. origin
+# loop4
+ -0.6  -3.6   180  # 3. takahashi's desk(lower)
+ -0.8    0    -180 # 7. wada's desk
+   0    0     0    # 1. origin
+
 ### pattern B
- -3.0  -14    -180  # 6. Elevator hall (chuo)
-# -0.6  -3.5   180  # 3. takahashi's desk
+# -3.0  -14    -180  # 6. Elevator hall (chuo)
+# -0.6  -3.6   180  # 3. takahashi's desk(lower)
 # 5.0  -7.0    -45  # gijutu foloor-East (go down)
 # 5.0  -26    -90   # 5. software floor
 # -5.0  -15    -180  # 6. Elevator hall (chuo oku)
--0.8    0    -180  # 7. wada's desk
-   0    0     0    # 1. origin
+#-0.8    0    -180  # 7. wada's desk
+#   0    0     0    # 1. origin
 
 # 5.0  -26    -90   # 5. software floor
 # -5.0  -15    -180  # 6. Elevator hall (chuo oku)
