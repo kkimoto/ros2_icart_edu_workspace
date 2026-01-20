@@ -1,4 +1,4 @@
-# ver 1.004
+# ver 2.00
 
 lidar1:
   ros__parameters:
@@ -423,6 +423,7 @@ global_costmap:
     ros__parameters:
       # Use map as the global reference for the global costmap
       global_frame: map
+      footprint: "[ [0.035, 0.185], [0.035, -0.185], [-0.245, -0.185], [-0.245, 0.185] ]" # convex clock wize
       # MUST be consistent with AMCL/SLAM-Toolbox base_frame
       robot_base_frame: base_footprint
       use_sim_time: false
@@ -480,6 +481,7 @@ local_costmap:
       global_frame: odom 
       # MUST be consistent with AMCL/SLAM-Toolbox base_frame
       robot_base_frame: base_footprint 
+      footprint: "[ [0.035, 0.185], [0.035, -0.185], [-0.245, -0.185], [-0.245, 0.185] ]" # convex clock wize
       use_sim_time: false
       update_frequency: 5.0
       publish_frequency: 2.0
