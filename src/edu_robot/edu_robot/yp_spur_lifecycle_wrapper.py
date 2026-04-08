@@ -17,15 +17,18 @@ class YpSpurLifecycleWrapper(LifecycleNode):
         # --- CORRECTION APPLIED HERE ---
         # The actual command line needed is:
         # ypspur-coordinator -p  /home/kimoto/ros2_workspace/lib/yp-spur-params/rsj-seminar2016.param -d /dev/ttyACM0
+        # 2026-04-08 change parameter to adopt i-cart 3 middle ( icart-wiz )
+        # ypspur-coordinator -d /dev/ttyUSB0 --blvr -p /home/kimoto/ros2_workspace/lib/yp-spur-params/icart-wiz.param
         
         # We declare the parameter with the required command as the default value.
         self.declare_parameter(
             'driver_cmd', 
-            ['ypspur-coordinator', 
+            ['/usr/local/bin/ypspur-coordinator', 
              '-p', 
-             '/home/kimoto/ros2_workspace/lib/yp-spur-params/rsj-seminar2016.param', 
+             '/home/kimoto/ros2_workspace/lib/yp-spur-params/icart-wiz.param', 
              '-d', 
-             '/dev/ttyACM0']
+             '/dev/ttyUSB0',
+             '--blvr']
         )
         # --- END OF CORRECTION ---
         
