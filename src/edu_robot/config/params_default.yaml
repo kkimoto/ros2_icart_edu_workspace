@@ -14,8 +14,8 @@ lidar1:
     diagnostics_tolerance: 0.05
     diagnostics_window_time: 5.0
     time_offset: 0.0
-    angle_min: -3.14
-    angle_max: 3.14
+    angle_min: -1.57 #-3.14
+    angle_max:  1.57 #3.14
     skip: 0
     cluster: 1
 lidar2:
@@ -32,8 +32,8 @@ lidar2:
     diagnostics_tolerance: 0.05
     diagnostics_window_time: 5.0
     time_offset: 0.0
-    angle_min: -3.14
-    angle_max: 3.14
+    angle_min: -2.35 #-3.14
+    angle_max:  2.35 #3.14
     skip: 0
     cluster: 1
 yvt_3d:
