@@ -1,9 +1,9 @@
 
 source install/setup.bash
 
-ros2 lifecycle set /teleop_lifecycle_wrapper configure
-sleep 2
-ros2 lifecycle set /teleop_lifecycle_wrapper activate
+#ros2 lifecycle set /teleop_lifecycle_wrapper configure
+#sleep 2
+#ros2 lifecycle set /teleop_lifecycle_wrapper activate
 
 echo "Launching slam_asyhc/sync.launch.py in the background..."
 #ros2 launch edu_robot slam_sync.launch.py > /tmp/slam_launch.log 2>&1 &

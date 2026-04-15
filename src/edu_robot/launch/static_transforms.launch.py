@@ -50,7 +50,7 @@ def generate_launch_description():
             output="screen",
             respawn=True,
             arguments=[
-                "--x", "-0.055", "--y", "-0.010", "--z", "0.0",
+                "--x", "0.143", "--y", "-0.000", "--z", "0.0",
                 "--roll", "0.0", "--pitch", "0.0", "--yaw", "0.0",
                 "--frame-id", "base_link",
                 "--child-frame-id", "laser_frame_1"
@@ -67,8 +67,8 @@ def generate_launch_description():
             output="screen",
             respawn=True,
             arguments=[
-                "--x", "-0.220", "--y", "0.0", "--z", "0.10",
-                "--roll", "0.0", "--pitch", "0.0", "--yaw", "-3.124", # -89 deg
+                "--x", "-0.213", "--y", "-0.120", "--z", "0.10",
+                "--roll", "0.0", "--pitch", "0.0", "--yaw", "-2.355", # -135 deg
                 "--frame-id", "base_link",
                 "--child-frame-id", "laser_frame_2"
             ],
@@ -84,8 +84,8 @@ def generate_launch_description():
             output="screen",
             respawn=True,
             arguments=[
-                "--x", "0.000", "--y", "0.0", "--z", "0.15",
-                "--roll", "3.141592653589793", "--pitch", "0.0", "--yaw", "0.0",
+                "--x", "0.145", "--y", "0.0", "--z", "0.450",
+                "--roll", "0.0", "--pitch", "0.0", "--yaw", "0.0",
                 "--frame-id", "base_link",
                 "--child-frame-id", "hokuyo3d"
             ],

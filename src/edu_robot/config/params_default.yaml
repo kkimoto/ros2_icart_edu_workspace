@@ -207,14 +207,14 @@ teleop_twist_joy_node:
     # ROS 1: scale_angular: 0.5
     # Sets the maximum regular angular velocity for Yaw
     scale_angular:
-      yaw: 0.9
+      yaw: -0.8
       pitch: 0.0
       roll: 0.0
 
     # ROS 1: scale_angular_turbo: 1.0
     # Sets the maximum turbo angular velocity for Yaw
     scale_angular_turbo:
-      yaw: 1.0
+      yaw: -1.0
       pitch: 0.0
       roll: 0.0
       
@@ -290,6 +290,7 @@ controller_server:
     min_theta_velocity_threshold: 0.005 #0.001
     progress_checker_plugins: ["progress_checker"] # progress_checker_plugin: "progress_checker" For Humble and older
     goal_checker_plugins: ["goal_checker"]
+    current_goal_checker: "goal_checker"
     controller_plugins: ["FollowPath"]
 
     progress_checker:
@@ -423,7 +424,8 @@ global_costmap:
     ros__parameters:
       # Use map as the global reference for the global costmap
       global_frame: map
-      footprint: "[ [0.035, 0.185], [0.035, -0.185], [-0.245, -0.185], [-0.245, 0.185] ]" # convex clock wize
+      #edu#footprint: "[ [0.035, 0.185], [0.035, -0.185], [-0.245, -0.185], [-0.245, 0.185] ]" # convex clock wize
+      ootprint: "[ [0.200, 0.183], [0.200, -0.183], [-0.300, -0.183], [-0.300, 0.183] ]" # convex clock wize
       # MUST be consistent with AMCL/SLAM-Toolbox base_frame
       robot_base_frame: base_footprint
       use_sim_time: false

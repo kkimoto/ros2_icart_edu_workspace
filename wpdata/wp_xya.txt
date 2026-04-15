@@ -1,20 +1,9 @@
 
-## loop1
- -0.6  -3.6   180  # 3. takahashi's desk(lower)
- -0.8    0    -180 # 7. wada's desk
-   0    0     0    # 1. origin
-## loop2
-# -0.6  -3.6   180  # 3. takahashi's desk(lower)
-# -0.8    0    -180 # 7. wada's desk
-#   0    0     0    # 1. origin
-## loop3
-# -0.6  -3.6   180  # 3. takahashi's desk(lower)
-# -0.8    0    -180 # 7. wada's desk
-#   0    0     0    # 1. origin
-## loop4
-# -0.6  -3.6   180  # 3. takahashi's desk(lower)
-# -0.8    0    -180 # 7. wada's desk
-#   0    0     0    # 1. origin
+2 0 0       # gijutsu A
+0 -0.5 180  # mydesk returned.
+
+#5.0  -26    -90   # 5. software floor
+#-0.8   0    -180  # 7. wada's desk
 
 ### pattern B
 # -3.0  -14    -180  # 6. Elevator hall (chuo)
@@ -24,41 +13,3 @@
 # 5.0  -7.0    -45  # gijutu foloor-East (go down)
 #-0.8    0    -180  # 7. wada's desk
 #   0    0     0    # 1. origin
-#
-# 5.0  -26    -90   # 5. software floor
-# -5.0  -15    -180  # 6. Elevator hall (chuo oku)
-# 3.8  -21    -90   # gijutsu-West
-# 5.0  -7.0    90  # gijutu foloor-East (go north)
-# 0.5   0.15    0    # 1b. turning point
-# 6.5  -29    -90   # 5c. software floor(oku)
-# -5.0  -15    -180  # 6. Elevator hall (chuo oku)
-# 0.0  -3.73     0  # 3. takahashi's desk2
-# 0.8  -15    0     # 6c. Elevator hall 3
-# 0.8  -13    -90  # 6b. Elevator hall 2
-# -3.0  -14    -180  # 6. Elevator hall (chuo)
-#-2.0  -14    -180  # 6. Elevator hall
-#-0.6  -3.5   180  # 3. takahashi's desk
-
-
-### pattern A
-#-0.8  -3.8   180   # 3. takahashi's desk
-# 5.0  -7.0    -45  # 4. gijutu foloor
-# 5.0  -26    -90   # 5. software floor
-# 6.5  -29    -90   # 5c. software floor(oku)
-#-2.0  -14    -180  # 6. Elevator hall
-# 5.0  -7.0    -45  # 4. gijutu foloor-East
-# 3.8  -21    -90   # 5b. gijutsu-West
-#-0.6  -3.5   180   # 3. takahashi's desk
-#-0.8    0    -180  # 7. wada's desk
-#   0    0     0    # 1. origin
-
-
-# point LIST
-#   0     0     0  # 1. origin
-#   1.2    0     0  # 1b.origin-turning
-# 1.5  -3.5   -45  # 2. danball
-#-0.6  -3.8   180  # 3. takahashi's desk
-# 5.0  -7.0   -45  # 4. gijutu foloor
-# 5.0  -26    -90  # 5. software floor
-#-2.0  -14   -180  # 6. Elevator hall
-#-0.8    0   -180  # 7. wada's desk
