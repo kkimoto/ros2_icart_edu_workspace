@@ -16,7 +16,7 @@ lidar1:
     time_offset: 0.0
     angle_min: -1.57 #-3.14
     angle_max: 1.57 #3.14
-    skip: 1
+    skip: 3
     cluster: 1
 lidar2:
   ros__parameters:
@@ -34,7 +34,7 @@ lidar2:
     time_offset: 0.0
     angle_min: -3.14
     angle_max: 3.14
-    skip: 1
+    skip: 3
     cluster: 1
 yvt_3d:
   ros__parameters:
@@ -72,7 +72,7 @@ scan_merger:
     angle_min: -3.141592653589793
     angle_max:  3.141592653589793
     angle_increment: 0.004363323096185923  # 0.25 deg
-    scan_time: 0.05 #skip 2, 20Hz #0.025 # sec
+    scan_time: 0.1 ##skip 3, 10Hz #0.025 # sec
     range_min: 0.06
     range_max: 100.0
     inf_epsilon: 1.0
@@ -436,7 +436,8 @@ global_costmap:
       unknown_cost_value: 254        # 2025-12-02
       lethal_cost_threshold: 254     # 2025-12-02
       rolling_window: false
-      plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+      #plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+      plugins: ["static_layer", "inflation_layer"] # remove-obstacle-layer
       # Increased tolerance to prevent time-related transform errors (critical)
       transform_tolerance: 3.0 #1.0
 
