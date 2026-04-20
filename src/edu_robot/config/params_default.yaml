@@ -314,7 +314,7 @@ controller_server:
       wz_std: 0.6 #0.3 #0.2 # 0.4
 
       vx_max: 0.2 # 0.6
-      vx_min: -0.2 #0.0
+      vx_min: 0.0  # 0 to prevent going backward #-0.2 #0.0
       wz_max: 0.5 # 1.0
 
       iteration_count: 1
