@@ -456,8 +456,8 @@ global_costmap:
         # Uses the merged scan topic you defined
         observation_sources: scan_merger_source
         scan_merger_source:
-#          topic: /merged_scan
-          topic: /scan_1st
+          topic: /merged_scan
+#          topic: /scan_1st
           max_obstacle_height: 2.0
           clearing: True
           marking: True
