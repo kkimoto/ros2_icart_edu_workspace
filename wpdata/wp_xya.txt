@@ -1,6 +1,6 @@
 
-2 0 0       # gijutsu A
-#-1.5 -4.0 -90   # R&2
+-1.5 -4.0 -90   # R&2
+2    0      0   # gijutsu A
 0    -0.5 -180  # mydesk returned.
 
 #5 -0.5 0       # gijutsu B
