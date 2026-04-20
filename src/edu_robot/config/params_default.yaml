@@ -17,7 +17,7 @@ lidar1:
     angle_min: -1.57 #-3.14
     angle_max: 1.57 #3.14
     skip: 3
-    cluster: 1
+    cluster: 0
 lidar2:
   ros__parameters:
     ip_address: 192.168.1.12
@@ -35,7 +35,7 @@ lidar2:
     angle_min: -3.14
     angle_max: 3.14
     skip: 3
-    cluster: 1
+    cluster: 0
 yvt_3d:
   ros__parameters:
     ip_address: 192.168.1.10
@@ -320,7 +320,7 @@ controller_server:
       iteration_count: 1
 
       prune_distance: 1.0
-      transform_tolerance: 0.5
+      transform_tolerance: 1.0 #0.5
 
       critics:
         - GoalCritic
@@ -456,8 +456,8 @@ global_costmap:
         # Uses the merged scan topic you defined
         observation_sources: scan_merger_source
         scan_merger_source:
-          topic: /merged_scan
-#          topic: /scan_1st
+#          topic: /merged_scan
+          topic: /scan_1st
           max_obstacle_height: 2.0
           clearing: True
           marking: True
@@ -480,7 +480,6 @@ global_costmap:
 local_costmap:
   local_costmap:
     ros__parameters:
-      # Use odom as the global reference for the local costmap (required for rolling window)
       global_frame: odom 
       # MUST be consistent with AMCL/SLAM-Toolbox base_frame
       robot_base_frame: base_footprint 
