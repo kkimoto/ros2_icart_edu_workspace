@@ -2,22 +2,58 @@
 
 #2       0    0   # gijutsu A
 #-1.5 -8.5 -90  # R&D
- 1.0 -8.5    0  # R&D -oku1
--2.0 -6.5    0  # R&D -oku2
+
+ 0.7 -8.5    0  # R&D -endo
+-5.5 -6.3  180  # R&D -wada
+-5.5 -5.0   90  # R&D -book stands
  0   -0.5 -180   # mydesk returned.
 
-#-1.5 -6.0 -90 # R&D
-#5.0 -4.0  0   # corridor A
+#-2.0 -6.5    0  # R&D -takahashi
 
 
-#5.0  -26    -90   # 5. software floor
-#-0.8   0    -180  # 7. wada's desk
+ 0.7 -8.5    0  # R&D -endo
+-5.5 -6.3  180  # R&D -wada
+-5.5 -5.0   90  # R&D -book stands
+ 0   -0.5 -180   # mydesk returned.
 
-### pattern B
-# -3.0  -14    -180  # 6. Elevator hall (chuo)
-# -0.6  -3.6   180  # 3. takahashi's desk(lower)
-# 5.0  -26    -90   # 5. software floor
-# -5.0  -15    -180  # 6. Elevator hall (chuo oku)
-# 5.0  -7.0    -45  # gijutu foloor-East (go down)
-#-0.8    0    -180  # 7. wada's desk
-#   0    0     0    # 1. origin
+ 0.7 -8.5    0  # R&D -endo
+-5.5 -6.3  180  # R&D -wada
+-5.5 -5.0   90  # R&D -book stands
+ 0   -0.5 -180   # mydesk returned.
+
+ 0.7 -8.5    0  # R&D -endo
+-5.5 -6.3  180  # R&D -wada
+-5.5 -5.0   90  # R&D -book stands
+ 0   -0.5 -180   # mydesk returned.
+
+ 0.7 -8.5    0  # R&D -endo
+-5.5 -6.3  180  # R&D -wada
+-5.5 -5.0   90  # R&D -book stands
+ 0   -0.5 -180   # mydesk returned.
+
+ 0.7 -8.5    0  # R&D -endo
+-5.5 -6.3  180  # R&D -wada
+-5.5 -5.0   90  # R&D -book stands
+ 0   -0.5 -180   # mydesk returned.
+
+ 0.7 -8.5    0  # R&D -endo
+-5.5 -6.3  180  # R&D -wada
+-5.5 -5.0   90  # R&D -book stands
+ 0   -0.5 -180   # mydesk returned.
+
+ 0.7 -8.5    0  # R&D -endo
+-5.5 -6.3  180  # R&D -wada
+-5.5 -5.0   90  # R&D -book stands
+ 0   -0.5 -180   # mydesk returned.
+
+ 0.7 -8.5    0  # R&D -endo
+-5.5 -6.3  180  # R&D -wada
+-5.5 -5.0   90  # R&D -book stands
+ 0   -0.5 -180   # mydesk returned.
+
+ 0.7 -8.5    0  # R&D -endo
+-5.5 -6.3  180  # R&D -wada
+-5.5 -5.0   90  # R&D -book stands
+ 0   -0.5 -180   # mydesk returned.
+
+
