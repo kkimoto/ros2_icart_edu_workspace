@@ -505,7 +505,7 @@ local_costmap:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
         # Uses the merged scan topic you defined
-        observation_sources: scan_merger_source #yvt_source
+        observation_sources: scan_merger_source yvt_source
         scan_merger_source: 
           topic: /merged_scan # /scan_1st
           max_obstacle_height: 2.0
