@@ -1,17 +1,10 @@
 
 
-2       0    0   # gijutsu A
--1.5 -4.0   -90  # R&D
-2       0    0   # gijutsu A
--1.5 -4.0   -90  # R&D
-2       0    0   # gijutsu A
--1.5 -4.0   -90  # R&D
-2       0    0   # gijutsu A
--1.5 -4.0   -90  # R&D
-2       0    0   # gijutsu A
--1.5 -4.0   -90  # R&D
-4    -0.5    0   # gijutsu B
-0    -0.5 -180   # mydesk returned.
+#2       0    0   # gijutsu A
+#-1.5 -8.5 -90  # R&D
+ 1.0 -8.5    0  # R&D -oku1
+-2.0 -6.5    0  # R&D -oku2
+ 0   -0.5 -180   # mydesk returned.
 
 #-1.5 -6.0 -90 # R&D
 #5.0 -4.0  0   # corridor A
