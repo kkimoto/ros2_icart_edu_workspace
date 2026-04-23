@@ -7,9 +7,9 @@
 
 #25.2 -10.4 -90 #kyusui
 
- 0.7 -8.5    0  # R&D -endo
--5.5 -5.0   90  # R&D -book stands
-#-5.5 -6.3  180  # R&D -wada
-#-2.0 -6.5    0  # R&D -takahashi
+0.6   -8.5     0  # R&D -endo
+-5.5  -5.65  180  # R&D -wada
+-5.25 -5.65   90  # R&D -book stands
 
 0  -0.5 -180 # mydesk returned.
+
