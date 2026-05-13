@@ -306,18 +306,18 @@ controller_server:
     FollowPath:
       plugin: "nav2_mppi_controller::MPPIController"
 
-      time_steps: 30 #20(worked) #15(good) #40 #56 # 30 means plan ahead 3.0 sec
+      time_steps: 50 #30 #20(worked) #15(good) #40 #56 # 30 means plan ahead 3.0 sec
       model_dt: 0.10 #0.1 for 10Hz ### 0.05 #koko#0.10 # 0.05
-      batch_size: 400 #600 #1000
+      batch_size: 2000 #400 #600 #1000
       vx_std: 0.09 #0.08(best) #0.05 #0.1 # 0.2
       vy_std: 0.0
-      wz_std: 0.4 #0.45 #0.5 #0.6 #0.3 #0.2
+      wz_std: 0.8 #0.4 (0.4 can not avoid obstacles) #0.45 #0.5  #0.3 #0.2
 
       vx_max: 0.3 #0.2 # 0.6
       vx_min: 0.00  # 0 to prevent going backward
-      wz_max: 0.5 # 1.0
+      wz_max: 1.0 #1.0 (test) # 0.5 (ok) 
 
-      iteration_count: 1
+      iteration_count: 4 #1
 
       prune_distance: 1.0
       transform_tolerance: 1.0 #0.5
@@ -335,12 +335,12 @@ controller_server:
         cost_weight: 3.0 #5.0
 
       PathFollowCritic:
-        cost_weight: 16.0 #12.0 #5.0
-        offset_from_furthest: 3 #5
+        cost_weight: 1.0 #8.0 (can not avoid obstacles ) #5.0 (ok-old) #16.0 #12.0 #
+        offset_from_furthest: 2 #3 #5
         threshold_to_consider: 0.5 
 
       PathAlignCritic:
-        cost_weight: 15.0      # to align to the planned path
+        cost_weight: 0.0 #2.0 #20.0 #15.0      # to align to the planned path
         threshold_to_consider: 0.5
 
       PathAngleCritic:
@@ -349,8 +349,8 @@ controller_server:
         max_angle_to_furthest: 1.0
 
       ObstaclesCritic:
-        collision_cost: 200.0 #100.0  # 10000.0
-        cost_weight: 5000 #10000.0 #100.0
+        collision_cost: 100000.0 #200.0 #100.0  # 10000.0
+        cost_weight: 20000 #15000.0 (worked) #10000.0 #5000 #100.0
         consider_footprint: true
         #invalid-parameter### inflation_radius: 0.3 #0.25
 
@@ -441,10 +441,23 @@ global_costmap:
       unknown_cost_value: 254        # 2025-12-02
       lethal_cost_threshold: 254     # 2025-12-02
       rolling_window: false
-      #plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
-      plugins: ["static_layer", "inflation_layer"] # remove-obstacle-layer
+      plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+      #plugins: ["static_layer", "inflation_layer"] # remove-obstacle-layer
       # Increased tolerance to prevent time-related transform errors (critical)
       transform_tolerance: 3.0 #1.0
+
+      obstacle_layer:
+              plugin: "nav2_costmap_2d::ObstacleLayer"
+              enabled: True
+              observation_sources: scan_merger_source
+              scan_merger_source:
+                topic: /merged_scan
+                max_obstacle_height: 2.0
+                clearing: True
+                marking: True
+                data_type: "LaserScan"
+                # Global Map は少し「記憶」させておいたほうがパスが安定します
+                observation_persistence: 2.0
 
       # Static Layer (for the map)
       static_layer:
@@ -459,7 +472,7 @@ global_costmap:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: False #to-reduce-heavy-load #True
         # Uses the merged scan topic you defined
-        observation_sources: scan_merger_source
+        observation_sources: scan_merger_source yvt_source
         scan_merger_source:
           topic: /merged_scan
 #          topic: /scan_1st
@@ -471,6 +484,15 @@ global_costmap:
           max_range: 5.0 # 20.0
           raytrace_max_range: 3.0 # Add this to stop clearing pixels too far away
           obstacle_max_range: 2.5 # Add this to only mark obstacles within 2.5m
+        yvt_source:
+          topic: /yvt_2dscan
+          max_obstacle_height: 2.0
+          clearing: True
+          marking: True
+          data_type: "LaserScan"
+          min_range: 0.1
+          max_range: 30.0
+          observation_persistence: 4.0
 
       # Inflation Layer (for robot padding)
       inflation_layer:
@@ -515,6 +537,7 @@ local_costmap:
           min_range: 0.0
           max_range: 5.0 #20.0
           inf_is_valid: False
+          observation_persistence: 4.0
         yvt_source:
           topic: /yvt_2dscan
           max_obstacle_height: 2.0
@@ -523,6 +546,7 @@ local_costmap:
           data_type: "LaserScan"
           min_range: 0.1
           max_range: 30.0
+          observation_persistence: 4.0
 
 # when you use 3D /yvt_scan
 # data_type: "PointCloud2"
