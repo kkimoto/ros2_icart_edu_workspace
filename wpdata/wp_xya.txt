@@ -7,6 +7,7 @@
 # 0.6   -8.5     0  # R&D -endo-OKU
  0.0   -8.5     0  # R&D -endo
 #NG# -5.25 -5.65   90  # R&D -book stands
-# -5.25 -5.00   90  # R&D -book stands
-0     -0.5 -180   # mydesk returned.
 
+0     -0.5 -180   # mydesk returned.
+ -5.25 -5.00   90  # R&D -book stands
+0     -0.5 -180   # mydesk returned.
