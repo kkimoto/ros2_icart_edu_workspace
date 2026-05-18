@@ -289,7 +289,7 @@ controller_server:
     min_x_velocity_threshold: 0.01 #0.005
     min_y_velocity_threshold: 0.01 #0.005
     min_theta_velocity_threshold: 0.02 #0.1 #0.005 #0.001
-    progress_checker_plugins: ["progress_checker"] # progress_checker_plugin: "progress_checker" For Humble and older
+    progress_checker_plugins: ["progress_checker"] 
     goal_checker_plugins: ["goal_checker"]
     controller_plugins: ["FollowPath"]
 
@@ -313,7 +313,7 @@ controller_server:
       vy_std: 0.0
       wz_std: 0.3 #0.4 (0.4 can not avoid obstacles) #0.45 #0.5  #0.3 #0.2
 
-      vx_max: 0.5 #0.3 #0.2 # 0.6
+      vx_max: 0.3 #0.2 # 0.5 (fast)
       vx_min: 0.00  # 0 to prevent going backward
       wz_max: 1.0 #1.0 (ok) # 0.5 (ok) 
 
@@ -364,25 +364,6 @@ controller_server:
         #deadband_velocities: [0.05, 0.05, 0.05] # Force zero if references are below these.
 
       transform_tolerance: 1.0 #0.1
-
-##--DWB minimal--
-##    FollowPath:
-##      plugin: "dwb_core::DWBLocalPlanner"
-##      critics: [
-##        "ObstacleFootprint",
-##        "GoalAlign",
-##        "PathAlign",
-##        "PathDist",
-##        "GoalDist"
-##      ]
-##
-##      ObstacleFootprint.scale: 0.02
-##      GoalAlign.scale: 24.0
-##      PathAlign.scale: 32.0
-##      PathDist.scale: 32.0
-##      GoalDist.scale: 24.0
-
-
 
 
 
@@ -475,8 +456,8 @@ local_costmap:
       update_frequency: 5.0
       publish_frequency: 2.0
       rolling_window: true
-      width: 3
-      height: 3
+      width:  4 #3
+      height: 4 #3
       resolution: 0.05
       plugins: ["obstacle_layer", "inflation_layer"]
       # Increased tolerance to prevent time-related transform errors (critical)
