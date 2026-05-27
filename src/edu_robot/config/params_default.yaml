@@ -285,11 +285,11 @@ controller_server:
     robot_base_frame: base_footprint      # ← yes, matches your TF tree
     use_sim_time: false                   # ← optional, but fine
 
-    controller_frequency: 20.0 #10.0(worked) # 20.0
+    controller_frequency: 10.0 # 20.0
     min_x_velocity_threshold: 0.01 #0.005
     min_y_velocity_threshold: 0.01 #0.005
     min_theta_velocity_threshold: 0.02 #0.1 #0.005 #0.001
-    progress_checker_plugins: ["progress_checker"] 
+    progress_checker_plugins: ["progress_checker"] # progress_checker_plugin: "progress_checker" For Humble and older
     goal_checker_plugins: ["goal_checker"]
     controller_plugins: ["FollowPath"]
 
@@ -306,18 +306,18 @@ controller_server:
     FollowPath:
       plugin: "nav2_mppi_controller::MPPIController"
 
-      time_steps: 15 #20 #50(worked) #15(good) # 30 means plan ahead 3.0 sec
+      time_steps: 15 #20 #40 #56
       model_dt: 0.10 #0.1 for 10Hz ### 0.05 #koko#0.10 # 0.05
-      batch_size: 400 #600(still high) #1000 #2000 #400 is OK.  2000 is too high.
-      vx_std: 0.05 #0.08(best) #0.05 #0.1 # 0.2
+      batch_size: 400 #600 #1000
+      vx_std: 0.09 #0.08(best) #0.05 #0.1 # 0.2
       vy_std: 0.0
-      wz_std: 0.3 #0.4 (0.4 can not avoid obstacles) #0.45 #0.5  #0.3 #0.2
+      wz_std: 0.4 #0.45 #0.5 #0.6 #0.3 #0.2
 
-      vx_max: 0.3 #0.2 # 0.5 (fast)
+      vx_max: 0.35 #0.3 #0.2 # 0.6
       vx_min: 0.00  # 0 to prevent going backward
-      wz_max: 1.0 #1.0 (ok) # 0.5 (ok) 
+      wz_max: 0.5 # 1.0
 
-      iteration_count: 1 #2 #1 #4 #1
+      iteration_count: 1
 
       prune_distance: 1.0
       transform_tolerance: 1.0 #0.5
@@ -332,15 +332,15 @@ controller_server:
         - GoalAngleCritic
 
       GoalCritic:
-        cost_weight: 30.0 #3.0 #5.0
+        cost_weight: 3.0 #5.0
 
       PathFollowCritic:
-        cost_weight: 5.0 #3.0 #1.0 #8.0 (can not avoid obstacles ) #5.0 (ok-old) #16.0 #12.0 #
-        offset_from_furthest: 8 #4 #1 #2 #3 #5
+        cost_weight: 16.0 #12.0 #5.0
+        offset_from_furthest: 3 #5
         threshold_to_consider: 0.5 
 
       PathAlignCritic:
-        cost_weight: 0.0 #0.0 allow side slide ##2.0 #20.0 #15.0 
+        cost_weight: 15.0      # to align to the planned path
         threshold_to_consider: 0.5
 
       PathAngleCritic:
@@ -349,8 +349,8 @@ controller_server:
         max_angle_to_furthest: 1.0
 
       ObstaclesCritic:
-        collision_cost: 500.0 #1000.0 #200.0 #100.0  # 10000.0
-        cost_weight: 4000 #15000.0 (worked) #10000.0 #5000 #100.0
+        collision_cost: 200.0 #100.0  # 10000.0
+        cost_weight: 5000 #10000.0 #100.0
         consider_footprint: true
         #invalid-parameter### inflation_radius: 0.3 #0.25
 
@@ -364,6 +364,25 @@ controller_server:
         #deadband_velocities: [0.05, 0.05, 0.05] # Force zero if references are below these.
 
       transform_tolerance: 1.0 #0.1
+
+##--DWB minimal--
+##    FollowPath:
+##      plugin: "dwb_core::DWBLocalPlanner"
+##      critics: [
+##        "ObstacleFootprint",
+##        "GoalAlign",
+##        "PathAlign",
+##        "PathDist",
+##        "GoalDist"
+##      ]
+##
+##      ObstacleFootprint.scale: 0.02
+##      GoalAlign.scale: 24.0
+##      PathAlign.scale: 32.0
+##      PathDist.scale: 32.0
+##      GoalDist.scale: 24.0
+
+
 
 
 
@@ -435,12 +454,30 @@ global_costmap:
         subscribe_to_updates: True
         always_send_full_costmap: True
 
+      # Obstacle Layer (for lidar data)
+      obstacle_layer:
+        plugin: "nav2_costmap_2d::ObstacleLayer"
+        enabled: False #to-reduce-heavy-load #True
+        # Uses the merged scan topic you defined
+        observation_sources: scan_merger_source
+        scan_merger_source:
+          topic: /merged_scan
+#          topic: /scan_1st
+          max_obstacle_height: 2.0
+          clearing: True
+          marking: True
+          data_type: "LaserScan"
+          min_range: 0.0
+          max_range: 5.0 # 20.0
+          raytrace_max_range: 3.0 # Add this to stop clearing pixels too far away
+          obstacle_max_range: 2.5 # Add this to only mark obstacles within 2.5m
+
       # Inflation Layer (for robot padding)
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         enabled: True
         cost_scaling_factor:  4.0 #3.0
-        inflation_radius:     0.25 #0.55
+        inflation_radius:     0.30 #0.25 #0.55
 
 # --------------------
 # LOCAL COSTMAP CONFIGURATION
@@ -456,8 +493,8 @@ local_costmap:
       update_frequency: 5.0
       publish_frequency: 2.0
       rolling_window: true
-      width:  4 #3
-      height: 4 #3
+      width: 3
+      height: 3
       resolution: 0.05
       plugins: ["obstacle_layer", "inflation_layer"]
       # Increased tolerance to prevent time-related transform errors (critical)
@@ -478,7 +515,6 @@ local_costmap:
           min_range: 0.0
           max_range: 5.0 #20.0
           inf_is_valid: False
-          observation_persistence: 4.0
         yvt_source:
           topic: /yvt_2dscan
           max_obstacle_height: 2.0
@@ -487,7 +523,6 @@ local_costmap:
           data_type: "LaserScan"
           min_range: 0.1
           max_range: 30.0
-          observation_persistence: 4.0
 
 # when you use 3D /yvt_scan
 # data_type: "PointCloud2"
@@ -499,7 +534,7 @@ local_costmap:
         plugin: "nav2_costmap_2d::InflationLayer"
         enabled: True
         cost_scaling_factor: 1.0 #koko#3.0 # 1.0 #4.0
-        inflation_radius:    0.25 #koko#0.29 # 0.25
+        inflation_radius:    0.30 #0.25 #koko#0.29 # 0.25
 
 # planne 1
 planner_server:
