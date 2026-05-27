@@ -360,8 +360,9 @@ controller_server:
 
       VelocityDeadbandCritic:
         cost_weight: 20.0 #50.0 # 35.0
-        deadband_velocities: [0.01, 0.01, 0.01] # Force zero if references are below these.
+#        deadband_velocities: [0.01, 0.01, 0.01] # Force zero if references are below these.
         #deadband_velocities: [0.05, 0.05, 0.05] # Force zero if references are below these.
+        deadband_velocities: [0.005, 0.005, 0.01] # Force zero if references are below these.
 
       transform_tolerance: 1.0 #0.1
 
