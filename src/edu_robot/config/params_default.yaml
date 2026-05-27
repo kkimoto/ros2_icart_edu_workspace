@@ -472,7 +472,7 @@ global_costmap:
           inf_is_valid: False
           obstacle_max_range: 3.5
           obstacle_min_range: 0.0
-          raytrace_max_range: 3.0
+          raytrace_max_range: 3.5 #3.0
           raytrace_min_range: 0.0
 
       # Inflation Layer (for robot padding)
@@ -517,12 +517,12 @@ local_costmap:
           marking: True
           data_type: "LaserScan"
           min_range: 0.0
-          max_range: 5.0 #20.0
+          max_range: 7.0 #5.0 #20.0
           inf_is_valid: False
 #local
           obstacle_max_range: 3.5 #2.5
           obstacle_min_range: 0.0
-          raytrace_max_range: 3.0
+          raytrace_max_range: 3.5 #3.0
           raytrace_min_range: 0.0
 
         yvt_source:
