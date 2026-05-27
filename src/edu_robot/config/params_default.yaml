@@ -441,8 +441,8 @@ global_costmap:
       unknown_cost_value: 254        # 2025-12-02
       lethal_cost_threshold: 254     # 2025-12-02
       rolling_window: false
-      #plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
-      plugins: ["static_layer", "inflation_layer"] # remove-obstacle-layer
+      plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+      #plugins: ["static_layer", "inflation_layer"] # remove-obstacle-layer
       # Increased tolerance to prevent time-related transform errors (critical)
       transform_tolerance: 3.0 #1.0
 
@@ -455,29 +455,32 @@ global_costmap:
         always_send_full_costmap: True
 
       # Obstacle Layer (for lidar data)
+#global
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
-        enabled: False #to-reduce-heavy-load #True
+        enabled: True #False #false to-reduce-heavy-load
         # Uses the merged scan topic you defined
         observation_sources: scan_merger_source
         scan_merger_source:
           topic: /merged_scan
-#          topic: /scan_1st
           max_obstacle_height: 2.0
           clearing: True
           marking: True
           data_type: "LaserScan"
           min_range: 0.0
           max_range: 5.0 # 20.0
-          raytrace_max_range: 3.0 # Add this to stop clearing pixels too far away
-          obstacle_max_range: 2.5 # Add this to only mark obstacles within 2.5m
+          inf_is_valid: False
+          obstacle_max_range: 3.5
+          obstacle_min_range: 0.0
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
 
       # Inflation Layer (for robot padding)
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         enabled: True
         cost_scaling_factor:  4.0 #3.0
-        inflation_radius:     0.30 #0.25 #0.55
+        inflation_radius:     0.35 #0.30 #0.25 #0.55
 
 # --------------------
 # LOCAL COSTMAP CONFIGURATION
@@ -505,7 +508,8 @@ local_costmap:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
         # Uses the merged scan topic you defined
-        observation_sources: scan_merger_source yvt_source
+        #observation_sources: scan_merger_source yvt_source
+        observation_sources: scan_merger_source
         scan_merger_source: 
           topic: /merged_scan # /scan_1st
           max_obstacle_height: 2.0
@@ -515,6 +519,12 @@ local_costmap:
           min_range: 0.0
           max_range: 5.0 #20.0
           inf_is_valid: False
+#local
+          obstacle_max_range: 3.5 #2.5
+          obstacle_min_range: 0.0
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+
         yvt_source:
           topic: /yvt_2dscan
           max_obstacle_height: 2.0
@@ -533,7 +543,7 @@ local_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         enabled: True
-        cost_scaling_factor: 1.0 #koko#3.0 # 1.0 #4.0
+        cost_scaling_factor: 2.0 #1.0 #koko#3.0 # 1.0 #4.0
         inflation_radius:    0.30 #0.25 #koko#0.29 # 0.25
 
 # planne 1
