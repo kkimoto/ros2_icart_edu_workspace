@@ -614,3 +614,15 @@ pointcloud_to_laserscan:
     range_max: 30.0
     use_inf: true
     queue_size: 2 #10
+
+velocity_smoother:
+  ros__parameters:
+    max_accel: [1.0, 0.0, 1.5]      # 線形加速 (x), y, 角加速 (theta)
+    max_decel: [-0.8, 0.0, -1.5]    # 線形減速は負値で指定（x, y, theta）
+    max_velocity: [0.5, 0.0, 2.5]   # 速度上限・下限は環境に合わせて（既存値維持例）
+    min_velocity: [-0.5, 0.0, -2.5]
+    deadband_velocity: [0.0, 0.0, 0.0]    # deadband は必要に応じて調整（ここでは無効）
+    smoothing_frequency: 10.0    # 指令の平滑化周波数（Hz）
+    # その他（必要なら）
+    # odom_topic: "odom"
+    # velocity_timeout: 0.5
