@@ -33,19 +33,21 @@ def generate_launch_description():
 
     # 4. 【追加】 3D LiDAR (urg3d_node2) の読み込み
     # 独立して動くので、ここで読み込むだけでOK
-    urg3d_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(pkg_edu_robot, 'launch', 'urg3d_node2_b.launch.py')
-        )
-    )
+#2026-05-28
+#    urg3d_launch = IncludeLaunchDescription(
+#        PythonLaunchDescriptionSource(
+#            os.path.join(pkg_edu_robot, 'launch', 'urg3d_node2_b.launch.py')
+#        )
+#    )
 
     # 5. 【追加】 3D -> 2D 変換 (yvt_to_scan)
     # 3D LiDARのデータを使って変換しますが、普通のノードなので並列起動でOKです
-    yvt_to_scan_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(pkg_edu_robot, 'launch', 'yvt_to_scan_b.launch.py')
-        )
-    )
+#2026-05-28
+#    yvt_to_scan_launch = IncludeLaunchDescription(
+#        PythonLaunchDescriptionSource(
+#            os.path.join(pkg_edu_robot, 'launch', 'yvt_to_scan_b.launch.py')
+#        )
+#    )
 
     # 6. Scan Merger (引数不要)
     scan_merger_launch = IncludeLaunchDescription(
@@ -81,8 +83,9 @@ def generate_launch_description():
         tf_launch,
         yp_spur_launch,
         urg_node_launch,
-        urg3d_launch,
-        yvt_to_scan_launch,
+# 2026-05-28
+#        urg3d_launch,
+#        yvt_to_scan_launch,
         scan_merger_launch,
         teleop_launch,
         delayed_icart_start

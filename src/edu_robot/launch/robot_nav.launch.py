@@ -46,8 +46,16 @@ def generate_launch_description():
         }.items()
     )
 
+    # keepout 起動
+    keepout_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(edu_robot_dir, 'launch', 'keepout_filter.launch.py')
+        )
+    )
+
     return LaunchDescription([
         map_yaml_arg,
         params_file_arg,
-        nav2_bringup_launch
+        nav2_bringup_launch,
+        keepout_launch,
     ])
