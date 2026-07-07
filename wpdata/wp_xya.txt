@@ -4,6 +4,8 @@
 #  16.3 -10.5 -90    # kyusui
 #  21.5  -1     0    # soft A
 
+ -5.25 -5.00   -90  # R&D -book stands to go forwared
+
  0.6   -8.5     0  # R&D -endo-OKU
 
 #  8.7  -10.5  -90   #elevator
@@ -11,9 +13,8 @@
 #NG# -5.25 -5.65   90  # R&D -book stands
 # 0     -0.5 -180   # mydesk returned.
 
-# -5.25 -5.00   -90  # R&D -book stands to go forwared
 # 0.0   -8.5     0  # R&D -endo
 # -5.5  -5.65  180  # R&D -wada
-# -5.25 -5.00    90  # R&D -book stands to go backword
+-5.25 -5.00    90  # R&D -book stands to go backword
 
 0     -0.5 -180   # mydesk returned.

@@ -18,6 +18,9 @@ Panels:
         - /LaserScan3
         - /LaserScan4
         - /LaserScan5
+        - /MarkerArray2
+        - /MarkerArray2/Status1
+        - /MarkerArray2/Topic1
       Splitter Ratio: 0.5833333134651184
     Tree Height: 571
   - Class: rviz_common/Selection
@@ -655,6 +658,18 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: MarkerArray
+      Namespaces:
+        {}
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /trajectories
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -705,8 +720,8 @@ Visualization Manager:
       Scale: 40.734127044677734
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz_default_plugins)
-      X: 10.734193801879883
-      Y: 0.30794820189476013
+      X: 9.776764869689941
+      Y: -2.883478879928589
     Saved: ~
 Window Geometry:
   Displays:
